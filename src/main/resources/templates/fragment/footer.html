@@ -1,0 +1,48 @@
+<section class="footer" data-th-fragment="footer">
+    <div id="userChangePass" class="l-modal" style="display:none">
+        <section class="l-mongolia">
+        </section>
+        <section class="l-panel">
+            <section class="l-title">
+                <label>用户密码修改</label>
+                <label id="userChangePassError" style="color:red;margin-left:15px;"></label>
+            </section>
+            <section class="l-content">
+                <section>
+                    <label class="description">旧密码</label>
+                    <label class="description-content">
+                        <input class="input-next" type="password" id="oldPasswd" data-th-placeholder="请输入旧密码"/>
+                        <input type="text" id="oldPasswdText" style="display: none;"/>
+                        <i class="Hui-iconfont iconfont-pass" name="oldPasswd">&#xe725;</i>
+                    </label>
+                </section>
+                <section>
+                    <label class="description">新密码</label>
+                    <label class="description-content">
+                        <input class="input-next" type="password" id="passwd" data-th-placeholder="请输入新密码"/>
+                        <input type="text" id="passwdText" style="display: none;"/>
+                        <i class="Hui-iconfont iconfont-pass" name="passwd">&#xe725;</i>
+                    </label>
+                </section>
+                <section>
+                    <label class="description">确认新密码</label>
+                    <label class="description-content">
+                        <input class="input-next" type="password" id="passwdSure" data-th-placeholder="请再次输入新密码"/>
+                        <input type="text" id="passwdSureText" style="display: none;"/>
+                        <i class="Hui-iconfont iconfont-pass" name="passwdSure">&#xe725;</i>
+                    </label>
+                </section>
+            </section>
+            <section class="l-foot">
+                <button class="sure" id="userResetPass">修改</button>
+                <button class="cancel" id="userCancelPass">取消</button>
+            </section>
+        </section>
+    </div>
+    <div id="message" style="display:none">
+        <label id="messageContent"></label>
+    </div>
+    <div id="messageRegister" style="display:none">
+        <label id="messageRegisterContent"></label>
+    </div>
+</section>
