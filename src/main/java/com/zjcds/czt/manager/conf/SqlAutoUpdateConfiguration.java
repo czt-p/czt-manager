@@ -53,6 +53,18 @@ public class SqlAutoUpdateConfiguration {
                 .build();
     }
 
+    /**
+     * 字典模块的数据库升级配置
+     * @param moduleDBAutoUpdateProperties
+     * @return
+     */
+    @Bean
+    public ModulePropertiesConfig dictModulePropertiesConfig(ModuleDBAutoUpdateProperties moduleDBAutoUpdateProperties){
+        return ModulePropertiesConfig.newBuilder()
+                .moduleProperties(moduleDBAutoUpdateProperties.getDict())
+                .build();
+    }
+
     @Getter
     @Setter
     @ConfigurationProperties(prefix = DBAutoUpdatePropertiesPath)
@@ -63,5 +75,7 @@ public class SqlAutoUpdateConfiguration {
         private ModuleProperties permission;
         @NestedConfigurationProperty
         private ModuleProperties yw;
+        @NestedConfigurationProperty
+        private ModuleProperties dict;
     }
 }
