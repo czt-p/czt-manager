@@ -6,11 +6,11 @@ curl -XPUT "http://localhost:9200/high_tech_questions" -H 'Content-Type: applica
       "properties":{
         "question":{
           "type":"string",
-          "analyzer":"ik_smart"
+          "analyzer":"ik_max_word"
         },
         "answer":{
           "type":"string",
-          "analyzer":"ik_smart"
+          "analyzer":"ik_max_word"
         },
         "addtime":{
           "type":"date",

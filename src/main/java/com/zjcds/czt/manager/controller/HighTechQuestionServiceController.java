@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zjcds.common.base.domain.page.Paging;
 import com.zjcds.common.dozer.BeanPropertyCopyUtils;
 import com.zjcds.common.jpa.PageResult;
+import com.zjcds.common.jpa.utils.PageUtils;
 import com.zjcds.common.jsonview.annotations.JsonFailureBindResult;
 import com.zjcds.common.jsonview.annotations.JsonViewException;
 import com.zjcds.common.jsonview.utils.ResponseResult;
@@ -41,16 +42,16 @@ public class HighTechQuestionServiceController {
     @ApiOperation(value ="批量查询HighTechQuestion操作，支持分页查询",produces = "application/json;charset=utf-8")
     @ApiImplicitParams({@ApiImplicitParam(name = "pageIndex" ,value = "分页页码" ,defaultValue = "1",dataType = "int",paramType = "query"),
             @ApiImplicitParam(name = "limit" ,value = "返回行数",defaultValue = "2147483647",dataType = "int",paramType = "query"),
-            @ApiImplicitParam(name = "queryString" ,value = "使用url安全的base64编码的json格式组装的查询条件",example="{\"question\":\"问题标题\",\"answer\":\"回答答案\",\"startDate\":12131414,\"endDate\":424242422}",defaultValue = "field~Eq~1234",dataType = "String",paramType = "query")})
-    public ResponseResult<PageResult<HighTechQuestionForm.Owner>> queryHighTechQuestions(Paging paging, @RequestParam String queryString) {
+            @ApiImplicitParam(name = "queryString" ,value = "使用url安全的base64编码的json格式组装的查询条件",example="{\"question\":\"问题标题\",\"answer\":\"回答答案\",\"startDate\":12131414,\"endDate\":424242422}",dataType = "String",paramType = "query")})
+    public ResponseResult<PageResult<HighTechQuestionForm.Owner>> queryHighTechQuestions(Paging paging, @RequestParam(required = false) String queryString) {
         if(paging == null)
             paging = new Paging();
         HighTechQuestionForm.QueryCondition queryCondition = null;
         if(!StringUtils.isBlank(queryString)){
             queryCondition = decodeCondition(queryString);
         }
-
-        return null;
+        PageResult<HighTechQuestion> highTechQuestionPageResult =  highTechQuestionService.queryHighTechQuestion(queryCondition,paging);
+        return new ResponseResult(PageUtils.copyPageResult(highTechQuestionPageResult,HighTechQuestionForm.Owner.class));
     }
 
     @PostMapping
@@ -91,6 +92,16 @@ public class HighTechQuestionServiceController {
        catch (Exception e){
             throw new IllegalArgumentException("解码查询条件出错",e);
        }
+    }
+
+    public static String encodeCondition(HighTechQuestionForm.QueryCondition queryCondition) {
+        try {
+            String condition = objectMapper.writeValueAsString(queryCondition);
+            return Base64Utils.encodeToUrlSafeString(condition.getBytes("UTF-8"));
+        }
+        catch (Exception e){
+            throw new IllegalArgumentException("编码查询条件出错",e);
+        }
     }
 
 }

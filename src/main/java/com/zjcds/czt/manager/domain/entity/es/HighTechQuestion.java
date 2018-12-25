@@ -1,6 +1,7 @@
 package com.zjcds.czt.manager.domain.entity.es;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -11,17 +12,17 @@ import java.util.Date;
  * created date：2018-12-23
  * @author niezhegang
  */
-@Document(indexName="high_tech_questions",type = "table")
+@Document(indexName="high_tech_questions",type = "table",createIndex = false )
 public class HighTechQuestion {
     @Id
     private String id;
-    @Field(type = FieldType.String,analyzer = "ik_smart")
+    @Field(type = FieldType.String)
     private String question;
-    @Field(type = FieldType.String,analyzer = "ik_smart")
+    @Field(type = FieldType.String)
     private String answer;
-    @Field(type = FieldType.Date)
+    @Field(type = FieldType.Date,format = DateFormat.custom,pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addtime;
-    @Field(type = FieldType.Date)
+    @Field(type = FieldType.Date,format = DateFormat.custom,pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedTime;
 
     public String getId() {
