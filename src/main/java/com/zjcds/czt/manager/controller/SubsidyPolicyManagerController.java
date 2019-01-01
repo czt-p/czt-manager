@@ -11,11 +11,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +41,10 @@ public class SubsidyPolicyManagerController {
     public ResponseResult<PageResult<SubsidyPolicyForm.Owner>> querySubsidyPolicies(Paging paging,
                                                                                     @RequestParam(required = false, name = "queryString") List<String> queryString,
                                                                                     @RequestParam(required = false, name = "orderBy") List<String> orderBys) {
+        if (CollectionUtils.isEmpty(orderBys)) {
+            orderBys = new ArrayList<>();
+            orderBys.add("modifyTimeDesc");
+        }
         return new ResponseResult<>(subsidyPolicyService.querySubsidyPolicies(paging, queryString, orderBys));
     }
 
