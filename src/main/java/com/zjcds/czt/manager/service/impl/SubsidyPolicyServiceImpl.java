@@ -56,17 +56,17 @@ public class SubsidyPolicyServiceImpl implements SubsidyPolicyService {
     @Override
     public SubsidyPolicyForm.Owner addSubsidyPolicy(SubsidyPolicyForm.Add subsidyPolicy) {
         Assert.notNull(subsidyPolicy, "要添加的资助政策信息不能为空！");
-        SubsidyPolicy entity = subsidyPolicyDao.findByRegionCode(subsidyPolicy.getRegion());
+        SubsidyPolicy entity = subsidyPolicyDao.findByRegionCode(subsidyPolicy.getRegionCode());
         if (entity != null) {
-            throw new IllegalArgumentException("添加资助政策失败,政策所属地区[code=" + subsidyPolicy.getRegion() + "]已存在资助政策");
+            throw new IllegalArgumentException("添加资助政策失败,政策所属地区[code=" + subsidyPolicy.getRegionCode() + "]已存在资助政策");
         }
-        Region region = regionDao.findOne(subsidyPolicy.getRegion());
+        Region region = regionDao.findOne(subsidyPolicy.getRegionCode());
         SubsidyPolicy subsidyPolicyEntity = new SubsidyPolicy();
         subsidyPolicyEntity.setName(subsidyPolicy.getName());
         subsidyPolicyEntity.setRegion(region);
         subsidyPolicyEntity.setContent(subsidyPolicy.getContent());
         if (region == null) {
-            throw new IllegalArgumentException("添加资助政策失败，政策所属地区[code=" + subsidyPolicy.getRegion() + "]不存在");
+            throw new IllegalArgumentException("添加资助政策失败，政策所属地区[code=" + subsidyPolicy.getRegionCode() + "]不存在");
         }
         if ("00".equals(region.getCode().substring(4, 6))) {
             throw new IllegalArgumentException("添加资助政策失败，政策所属地区必须精确到区");
@@ -85,13 +85,13 @@ public class SubsidyPolicyServiceImpl implements SubsidyPolicyService {
         if (subsidyPolicyEntity == null) {
             throw new IllegalStateException("修改资助政策失败，该资助政策[id=" + id + "]不存在或已被删除");
         }
-        SubsidyPolicy entity = subsidyPolicyDao.findByRegionCode(subsidyPolicy.getRegion());
+        SubsidyPolicy entity = subsidyPolicyDao.findByRegionCode(subsidyPolicy.getRegionCode());
         if (entity != null) {
-            throw new IllegalArgumentException("修改资助政策失败,政策所属地区[code=" + subsidyPolicy.getRegion() + "]已存在资助政策");
+            throw new IllegalArgumentException("修改资助政策失败,政策所属地区[code=" + subsidyPolicy.getRegionCode() + "]已存在资助政策");
         }
-        Region region = regionDao.findOne(subsidyPolicy.getRegion());
+        Region region = regionDao.findOne(subsidyPolicy.getRegionCode());
         if (region == null) {
-            throw new IllegalArgumentException("修改资助政策失败，政策所属地区[code=" + subsidyPolicy.getRegion() + "]不存在");
+            throw new IllegalArgumentException("修改资助政策失败，政策所属地区[code=" + subsidyPolicy.getRegionCode() + "]不存在");
         }
         if ("00".equals(region.getCode().substring(4, 6))) {
             throw new IllegalArgumentException("添加资助政策失败，政策所属地区必须精确到区");

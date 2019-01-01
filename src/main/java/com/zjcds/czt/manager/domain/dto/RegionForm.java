@@ -22,6 +22,8 @@ public class RegionForm {
         private String code;
         @ApiModelProperty(value = "行政地区名称", required = true, example = "江干区")
         private String name;
+        @ApiModelProperty(value = "全称", required = true, example = "浙江省杭州市江干区")
+        private String fullName;
         @ApiModelProperty(value = "父级代码", example = "330100")
         private String parent;
     }

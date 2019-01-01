@@ -20,6 +20,11 @@ public class Region {
     private String name;
 
     /**
+     * 全称
+     */
+    private String fullName;
+
+    /**
      * 父级代码
      */
     private String parent;
@@ -42,6 +47,16 @@ public class Region {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "full_name")
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     @Basic
