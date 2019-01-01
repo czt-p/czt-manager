@@ -19,12 +19,16 @@ public class HighTechQuestionRepostoryTest extends SpringBootTestSupport{
 
     @Test
     public void testInsert() {
+        Date date = new Date();
+        Date modifiedDate = null;
         for (int i = 1 ; i <= 100 ;i++) {
             HighTechQuestion highTechQuestion = new HighTechQuestion();
             highTechQuestion.setQuestion("自主知识产权问题？"+i);
             highTechQuestion.setAnswer("自主知识产权回答"+i);
-            highTechQuestion.setAddtime(new Date());
-            highTechQuestion.setUpdatedTime(DateUtils.addDays(new Date(),-i));
+            highTechQuestion.setAddtime(date);
+            modifiedDate = DateUtils.addDays(date,i);
+            System.out.println(modifiedDate);
+            highTechQuestion.setUpdatedTime(modifiedDate);
             highTechQuestionRepostory.save(highTechQuestion);
         }
     }

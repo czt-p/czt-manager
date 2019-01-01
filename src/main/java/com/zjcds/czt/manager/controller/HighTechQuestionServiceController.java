@@ -15,10 +15,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.util.Base64Utils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,7 +86,7 @@ public class HighTechQuestionServiceController {
      */
     public static HighTechQuestionForm.QueryCondition decodeCondition(String src) {
         try {
-           String condition = new String(Base64Utils.decodeFromUrlSafeString(src),"UTF-8");
+           String condition = new String(Base64.decodeBase64(src.getBytes("UTF-8")),"UTF-8");
             return objectMapper.readValue(condition,HighTechQuestionForm.QueryCondition.class);
         }
        catch (Exception e){
@@ -97,7 +97,7 @@ public class HighTechQuestionServiceController {
     public static String encodeCondition(HighTechQuestionForm.QueryCondition queryCondition) {
         try {
             String condition = objectMapper.writeValueAsString(queryCondition);
-            return Base64Utils.encodeToUrlSafeString(condition.getBytes("UTF-8"));
+            return Base64.encodeBase64URLSafeString(condition.getBytes("UTF-8"));
         }
         catch (Exception e){
             throw new IllegalArgumentException("编码查询条件出错",e);

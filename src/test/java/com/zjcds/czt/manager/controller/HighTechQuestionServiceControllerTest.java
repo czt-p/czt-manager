@@ -33,10 +33,28 @@ public class HighTechQuestionServiceControllerTest {
     public void testEncode1() {
         HighTechQuestionForm.QueryCondition queryCondition = new HighTechQuestionForm.QueryCondition();
 //        queryCondition.setAnswer("test");
-        queryCondition.setQuestion("知识产权");
-        queryCondition.setStartDate(DateUtils.addDays(new Date(),-5));
-        queryCondition.setEndDate(new Date());
+        queryCondition.setQuestion("知识 问题？");
+//        queryCondition.setStartDate(DateUtils.addDays(new Date(),-5));
+//        queryCondition.setEndDate(new Date());
         System.out.println(HighTechQuestionServiceController.encodeCondition(queryCondition));
     }
 
+
+    @Test
+    public void dateTest() {
+        Date date = new Date(1545727596089L);
+        Date data = new Date(1546075711077L);
+        System.out.println(date);
+    }
+
+    @Test
+    public void name() {
+        System.out.println(new Date().getTime());
+    }
+
+    @Test
+    public void testDecode1() {
+        HighTechQuestionForm.QueryCondition queryCondition = HighTechQuestionServiceController.decodeCondition("eyJxdWVzdGlvbiI6IuiHquS4u-efpeivhuS6p-adg-mXrumimO-8nzEwMCIsImFuc3dlciI6IiIsInN0YXJ0RGF0ZSI6IiIsImVuZERhdGUiOiIifQ");
+        System.out.println(queryCondition);
+    }
 }
