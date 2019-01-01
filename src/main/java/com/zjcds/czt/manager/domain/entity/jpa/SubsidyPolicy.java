@@ -22,19 +22,16 @@ public class SubsidyPolicy extends CreateModifyTime {
     private String name;
 
     /**
-     * 所属地区
+     * 所属地区代码
      **/
-    private String region;
-
-    /**
-     * 登记机关
-     **/
-    private String registerDepartment;
+    private String regionCode;
 
     /**
      * 内容
      **/
     private String content;
+
+    private Region region;
 
     @Id
     @Column(name = "ID")
@@ -59,23 +56,13 @@ public class SubsidyPolicy extends CreateModifyTime {
     }
 
     @Basic
-    @Column(name = "region")
-    public String getRegion() {
-        return region;
+    @Column(name = "region_code", insertable = false, updatable = false)
+    public String getRegionCode() {
+        return regionCode;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    @Basic
-    @Column(name = "register_department")
-    public String getRegisterDepartment() {
-        return registerDepartment;
-    }
-
-    public void setRegisterDepartment(String registerDepartment) {
-        this.registerDepartment = registerDepartment;
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
     }
 
     @Basic
@@ -86,5 +73,15 @@ public class SubsidyPolicy extends CreateModifyTime {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "region_code", referencedColumnName = "code")
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 }

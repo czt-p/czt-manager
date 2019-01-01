@@ -43,18 +43,12 @@ public class SubsidyPolicyServiceImpl implements SubsidyPolicyService {
         }
         PageResult<SubsidyPolicy> subsidyPolicyPage = subsidyPolicyDao.findAll(paging, queryString, orderBy);
         PageResult<SubsidyPolicyForm.Owner> result = PageUtils.copyPageResult(subsidyPolicyPage, SubsidyPolicyForm.Owner.class);
-        for (SubsidyPolicyForm.Owner subsidyPolicy : result.getContent()) {
-            fillRegionFullName(subsidyPolicy);
-        }
         return result;
     }
 
     @Override
     public SubsidyPolicyForm.Owner querySubsidyPolicy(Integer id) {
         SubsidyPolicyForm.Owner subsidyPolicy = BeanPropertyCopyUtils.copy(subsidyPolicyDao.findOne(id), SubsidyPolicyForm.Owner.class);
-        if (subsidyPolicy != null) {
-            fillRegionFullName(subsidyPolicy);
-        }
         return subsidyPolicy;
     }
 
@@ -62,15 +56,24 @@ public class SubsidyPolicyServiceImpl implements SubsidyPolicyService {
     @Override
     public SubsidyPolicyForm.Owner addSubsidyPolicy(SubsidyPolicyForm.Add subsidyPolicy) {
         Assert.notNull(subsidyPolicy, "要添加的资助政策信息不能为空！");
-        SubsidyPolicy subsidyPolicyEntity = BeanPropertyCopyUtils.copy(subsidyPolicy, SubsidyPolicy.class);
+        SubsidyPolicy entity = subsidyPolicyDao.findByRegionCode(subsidyPolicy.getRegion());
+        if (entity != null) {
+            throw new IllegalArgumentException("添加资助政策失败,政策所属地区[code=" + subsidyPolicy.getRegion() + "]已存在资助政策");
+        }
         Region region = regionDao.findOne(subsidyPolicy.getRegion());
+        SubsidyPolicy subsidyPolicyEntity = new SubsidyPolicy();
+        subsidyPolicyEntity.setName(subsidyPolicy.getName());
+        subsidyPolicyEntity.setRegion(region);
+        subsidyPolicyEntity.setContent(subsidyPolicy.getContent());
         if (region == null) {
             throw new IllegalArgumentException("添加资助政策失败，政策所属地区[code=" + subsidyPolicy.getRegion() + "]不存在");
+        }
+        if ("00".equals(region.getCode().substring(4, 6))) {
+            throw new IllegalArgumentException("添加资助政策失败，政策所属地区必须精确到区");
         }
         subsidyPolicyEntity = subsidyPolicyDao.save(subsidyPolicyEntity);
         // TODO: 2018/12/22 log
         SubsidyPolicyForm.Owner result = BeanPropertyCopyUtils.copy(subsidyPolicyEntity, SubsidyPolicyForm.Owner.class);
-        fillRegionFullName(result);
         return result;
     }
 
@@ -82,60 +85,35 @@ public class SubsidyPolicyServiceImpl implements SubsidyPolicyService {
         if (subsidyPolicyEntity == null) {
             throw new IllegalStateException("修改资助政策失败，该资助政策[id=" + id + "]不存在或已被删除");
         }
+        SubsidyPolicy entity = subsidyPolicyDao.findByRegionCode(subsidyPolicy.getRegion());
+        if (entity != null) {
+            throw new IllegalArgumentException("修改资助政策失败,政策所属地区[code=" + subsidyPolicy.getRegion() + "]已存在资助政策");
+        }
         Region region = regionDao.findOne(subsidyPolicy.getRegion());
         if (region == null) {
             throw new IllegalArgumentException("修改资助政策失败，政策所属地区[code=" + subsidyPolicy.getRegion() + "]不存在");
         }
+        if ("00".equals(region.getCode().substring(4, 6))) {
+            throw new IllegalArgumentException("添加资助政策失败，政策所属地区必须精确到区");
+        }
         subsidyPolicyEntity.setName(subsidyPolicy.getName());
-        subsidyPolicyEntity.setRegion(subsidyPolicy.getRegion());
-        subsidyPolicyEntity.setRegisterDepartment(subsidyPolicy.getRegisterDepartment());
+        subsidyPolicyEntity.setRegion(region);
         subsidyPolicyEntity.setContent(subsidyPolicy.getContent());
         subsidyPolicyEntity = subsidyPolicyDao.save(subsidyPolicyEntity);
         // TODO: 2018/12/22 log
         SubsidyPolicyForm.Owner result = BeanPropertyCopyUtils.copy(subsidyPolicyEntity, SubsidyPolicyForm.Owner.class);
-        fillRegionFullName(result);
         return result;
     }
 
+    @Transactional
     @Override
     public void deleteSubsidyPolicy(Integer id) {
         SubsidyPolicy subsidyPolicy = subsidyPolicyDao.findOne(id);
         if (subsidyPolicy == null) {
             throw new IllegalStateException("删除资助政策失败：资助政策[id=" + id + "]不存在或已被删除，请刷新页面重试！");
         }
-        subsidyPolicyDao.delete(id);
+        subsidyPolicyDao.delete(subsidyPolicy);
         // TODO: 2018/12/22 log
     }
 
-    private void fillRegionFullName(SubsidyPolicyForm.Owner subsidyPolicy) {
-        String regionFullName = queryRegionFullName(subsidyPolicy.getRegion());
-        subsidyPolicy.setRegionFullName(regionFullName);
-    }
-
-    private String queryRegionFullName(String code) {
-        StringBuilder sb = new StringBuilder();
-        Region region = regionDao.findOne(code);
-        if (region == null) {
-            return null;
-//            throw new IllegalArgumentException("行政地区[code=" + code + "不存在");
-        }
-        List<Region> regionList = new ArrayList<>();
-        regionList.add(region);
-        regionList = addParent(region, regionList);
-        for (int i = regionList.size() - 1; i >= 0; i--) {
-            sb.append(regionList.get(i).getName());
-        }
-        return sb.toString();
-    }
-
-    private List<Region> addParent(Region region, List<Region> regionList) {
-        if (StringUtils.hasText(region.getParent())) {
-            Region parent = regionDao.findOne(region.getParent());
-            if (parent != null) {
-                regionList.add(parent);
-                regionList = addParent(parent, regionList);
-            }
-        }
-        return regionList;
-    }
 }
