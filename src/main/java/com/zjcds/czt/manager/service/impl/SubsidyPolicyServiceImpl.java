@@ -85,9 +85,11 @@ public class SubsidyPolicyServiceImpl implements SubsidyPolicyService {
         if (subsidyPolicyEntity == null) {
             throw new IllegalStateException("修改资助政策失败，该资助政策[id=" + id + "]不存在或已被删除");
         }
-        SubsidyPolicy entity = subsidyPolicyDao.findByRegionCode(subsidyPolicy.getRegionCode());
-        if (entity != null) {
-            throw new IllegalArgumentException("修改资助政策失败,政策所属地区[code=" + subsidyPolicy.getRegionCode() + "]已存在资助政策");
+        if (!subsidyPolicyEntity.getRegionCode().equals(subsidyPolicy.getRegionCode())) {
+            SubsidyPolicy entity = subsidyPolicyDao.findByRegionCode(subsidyPolicy.getRegionCode());
+            if (entity != null) {
+                throw new IllegalArgumentException("修改资助政策失败,政策所属地区[code=" + subsidyPolicy.getRegionCode() + "]已存在资助政策");
+            }
         }
         Region region = regionDao.findOne(subsidyPolicy.getRegionCode());
         if (region == null) {
