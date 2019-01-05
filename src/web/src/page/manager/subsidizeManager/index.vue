@@ -215,7 +215,7 @@
         }
     }
     .el-card{
-      height: calc(100% - 88px);
+      height: calc(100% - 90px);
     }
   }
 </style>
