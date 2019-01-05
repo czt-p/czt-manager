@@ -56,10 +56,10 @@
     vertical-align: middle;
     margin-top:-3px;
     background: url("../../images/theme3/taitou.png") no-repeat left center;
-    padding-left:84px;
+    margin-left:43px;
     font-size: 20px;
     font-family: microsoft yahei;
-    width: 260px;
+    width: 350px;
 }
 
 .aside {
@@ -168,8 +168,9 @@
     font-size: 12px;
     font-weight: bold;
     color:#000;
-    position: absolute;
+    /*position: absolute;*/
     width: 100%;
+    line-height: 63px;
 }
 
 .menu .temp-active>a{
@@ -195,7 +196,7 @@
 .menu .active>a{
     z-index: 1;
     border:none;
-    background: #2196F3;
+    /*background: #2196F3;*/
     margin: 2px 0;
     height: 56px;
 }
@@ -223,10 +224,10 @@
     position: relative;
 }
 .menu > li > a > span {
-    display: block;
+    /*display: block;*/
     position: relative;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     height: 25px;
     color: #000;
     font-weight: normal;
@@ -675,11 +676,18 @@
     border-right:none;
 }
 .menu > .active>a>i, .menu > .active>a>span{
-    color: #fff;
+    color: rgba(74,144,226,1);
     margin-top: 2px;
 }
 .sub-menu li:last-child a{
     border-bottom: none;
+}
+.menu .active{
+    border-top: 8px solid rgba(74,144,226,1);
+    background: linear-gradient(180deg,rgba(74,144,226,0.2) 0%,rgba(74,144,226,0) 100%);
+}
+.menu .active a{
+    line-height:43px;
 }
 .menu .temp-active>a>i, .menu .temp-active>a>span{
     color:#fff;

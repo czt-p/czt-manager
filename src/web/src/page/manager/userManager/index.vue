@@ -189,7 +189,7 @@
         margin-right: 30px;
         padding: 18px 4px;
         .el-input {
-          vertical-align: middle;
+          vertical-align: middle!important;
           width: auto!important;
         }
       }
