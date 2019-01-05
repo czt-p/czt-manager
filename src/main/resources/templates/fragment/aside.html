@@ -2,7 +2,7 @@
     <span class="none" id="menuLength" data-th-text="${#lists.size(menus)}"></span>
     <ul class="menu slider">
         <li data-th-each="menu : ${menus}" data-th-id="${menu.id}" data-th-class="'slide menu-0 '+ (${menu.selected} ? 'active' : '')">
-            <a data-th-if="${not #lists.isEmpty(menu.url)}" data-th-href="@{${menu.href}}">
+            <a data-th-if="${not #lists.isEmpty(menu.url)}" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{${menu.href}}|">
                 <!--<i data-th-attr="class='Hui-iconfont '+ ${menu.icon}"></i>-->
                 <span data-th-text="${menu.name}"></span>
             </a>
