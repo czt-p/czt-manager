@@ -7,7 +7,7 @@
     <link href="../css/reset.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/resources/css/reset.css}|" />
     <link href="../css/global.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/resources/css/global.css}|" />
 </head>
-<body class="body" data-th-style="|background:url(${#httpServletRequest?.getHeader('app_root')?:''}@{/resources/images/login/bg.jpg}) no-repeat center;background-size: 100% 100%|">
+<body class="body" data-th-style="|background:url(${#httpServletRequest?.getHeader('app_root')?:''}@{/resources/images/login/bg.png}) no-repeat center;background-size: 100% 100%|">
 <article class="page">
     <section class="login-title">
         <section class="login-title-img" data-th-text="#{login.title}"></section>
@@ -38,7 +38,7 @@
        </section>
     <!-- <section class="login-bottom" data-th-text="#{login.bottom.title}"> -->
 
-    </section>
+    <!--</section>-->
 </article>
 <script type="text/javascript" src="../js/libs/jquery.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/resources/js/libs/jquery-3.0.0.min.js}|"></script>
 <script type="text/javascript" src="../js/login.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/resources/js/login.js}|"></script>
