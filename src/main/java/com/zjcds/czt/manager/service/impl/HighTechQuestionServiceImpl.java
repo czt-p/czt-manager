@@ -3,12 +3,23 @@ package com.zjcds.czt.manager.service.impl;
 import com.zjcds.common.base.domain.page.Paging;
 import com.zjcds.common.dozer.BeanPropertyCopyUtils;
 import com.zjcds.common.jpa.PageResult;
+import com.zjcds.common.jpa.utils.PageUtils;
 import com.zjcds.czt.manager.dao.es.HighTechQuestionRepostory;
 import com.zjcds.czt.manager.domain.dto.HighTechQuestionForm;
 import com.zjcds.czt.manager.domain.entity.es.HighTechQuestion;
 import com.zjcds.czt.manager.service.HighTechQuestionService;
-import org.elasticsearch.index.query.QueryBuilders;
+import com.zjcds.czt.manager.utils.DateUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.search.highlight.HighlightBuilder;
+import org.elasticsearch.search.sort.SortBuilders;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import static org.elasticsearch.index.query.QueryBuilders.*;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -26,9 +37,31 @@ public class HighTechQuestionServiceImpl implements HighTechQuestionService{
 
     @Override
     public PageResult<HighTechQuestion> queryHighTechQuestion(HighTechQuestionForm.QueryCondition queryCondition, Paging paging) {
-//        QueryBuilders.boolQuery().must()
-//        highTechQuestionRepostory.search()
-        return null;
+        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
+        if(queryCondition != null) {
+            BoolQueryBuilder boolQueryBuilder = boolQuery();
+            //查询问题标题
+            if(StringUtils.isNotBlank(queryCondition.getQuestion())){
+                boolQueryBuilder.must(matchQuery("question",queryCondition.getQuestion()));
+            }
+            //查询问题答案
+            if(StringUtils.isNotBlank(queryCondition.getAnswer())){
+                boolQueryBuilder.must(matchQuery("answer",queryCondition.getQuestion()));
+            }
+            //范围过滤
+            if(queryCondition.getStartDate() != null && queryCondition.getEndDate() != null) {
+                boolQueryBuilder.filter(rangeQuery("updatedTime").format(DateUtils.DefaultPattern).gte(DateUtils.formatDate(queryCondition.getStartDate())).lte(DateUtils.formatDate(queryCondition.getEndDate())));
+            }
+            nativeSearchQueryBuilder.withQuery(boolQueryBuilder);
+        }
+        //排序和分页
+        SearchQuery searchQuery = nativeSearchQueryBuilder
+                .withSort(SortBuilders.fieldSort("updatedTime").order(SortOrder.DESC))
+                .withPageable(PageUtils.transform(paging))
+//                .withHighlightFields(new HighlightBuilder.Field("answer"),new HighlightBuilder.Field("question"))
+                .build();
+        Page<HighTechQuestion> highTechQuestionPage = highTechQuestionRepostory.search(searchQuery);
+        return PageUtils.transformPageResult(highTechQuestionPage,paging);
     }
 
     @Override

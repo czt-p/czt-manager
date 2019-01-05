@@ -11,11 +11,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +42,24 @@ public class SubsidyPolicyManagerController {
     public ResponseResult<PageResult<SubsidyPolicyForm.Owner>> querySubsidyPolicies(Paging paging,
                                                                                     @RequestParam(required = false, name = "queryString") List<String> queryString,
                                                                                     @RequestParam(required = false, name = "orderBy") List<String> orderBys) {
+        if (CollectionUtils.isNotEmpty(queryString)) {
+            for (String query : queryString) {
+                String queryUpper = StringUtils.upperCase(query);
+                if (queryUpper.startsWith("REGIONCODE~LIKE~")) {
+                    if (query.endsWith("0000%")) {
+                        queryString.remove(query);
+                        queryString.add(query.replaceFirst("0000%", "%"));
+                    } else if (query.endsWith("00%")) {
+                        queryString.remove(query);
+                        queryString.add(query.replaceFirst("00%", "%"));
+                    }
+                }
+            }
+        }
+        if (CollectionUtils.isEmpty(orderBys)) {
+            orderBys = new ArrayList<>();
+            orderBys.add("modifyTimeDesc");
+        }
         return new ResponseResult<>(subsidyPolicyService.querySubsidyPolicies(paging, queryString, orderBys));
     }
 
