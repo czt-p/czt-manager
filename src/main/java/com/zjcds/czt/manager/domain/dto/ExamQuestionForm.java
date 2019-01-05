@@ -29,13 +29,13 @@ public class ExamQuestionForm {
     @Getter
     @Setter
     public static class ChoiceQuestion extends Owner {
-        private List<OptionForm.Owner> options;
+        private List<OptionForm.OwnerWithoutScore> options;
     }
 
     @Getter
     @Setter
     public static class ChoiceQuestionWithAnswer extends OwnerWithAnswer {
-        private List<OptionForm.Owner> options;
+        private List<OptionForm.OwnerWithoutScore> options;
     }
 
     @Getter

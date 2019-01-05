@@ -5,7 +5,6 @@ import com.zjcds.czt.manager.domain.dto.ExamQuestionForm;
 import com.zjcds.czt.manager.domain.dto.OptionForm;
 import com.zjcds.czt.manager.domain.entity.jpa.ExamQuestion;
 import org.apache.commons.lang3.StringUtils;
-import springfox.documentation.spring.web.json.Json;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public abstract class ExamQuestionUtils {
         result.setContent(examQuestion.getContent());
         result.setType(examQuestion.getType());
         result.setOrderNumber(examQuestion.getOrderNumber());
-        result.setOptions(JsonUtils.toObject(examQuestion.getDetails(), new TypeReference<List<OptionForm.Owner>>() {
+        result.setOptions(JsonUtils.toObject(examQuestion.getDetails(), new TypeReference<List<OptionForm.OwnerWithoutScore>>() {
         }));
         return result;
     }
@@ -34,7 +33,7 @@ public abstract class ExamQuestionUtils {
         result.setType(examQuestion.getType());
         result.setOrderNumber(examQuestion.getOrderNumber());
         if(StringUtils.isNotBlank(examQuestion.getDetails())){
-            result.setOptions(JsonUtils.toObject(examQuestion.getDetails(), new TypeReference<List<OptionForm.Owner>>() {
+            result.setOptions(JsonUtils.toObject(examQuestion.getDetails(), new TypeReference<List<OptionForm.OwnerWithoutScore>>() {
             }));
         }
         return result;

@@ -3,11 +3,11 @@
     <ul class="menu slider">
         <li data-th-each="menu : ${menus}" data-th-id="${menu.id}" data-th-class="'slide menu-0 '+ (${menu.selected} ? 'active' : '')">
             <a data-th-if="${not #lists.isEmpty(menu.url)}" data-th-href="@{${menu.href}}">
-                <i data-th-attr="class='Hui-iconfont '+ ${menu.icon}"></i>
+                <!--<i data-th-attr="class='Hui-iconfont '+ ${menu.icon}"></i>-->
                 <span data-th-text="${menu.name}"></span>
             </a>
             <a data-th-if="${#lists.isEmpty(menu.url)}">
-                <i data-th-attr="class='Hui-iconfont '+ ${menu.icon}"></i>
+                <!--<i data-th-attr="class='Hui-iconfont '+ ${menu.icon}"></i>-->
                 <span data-th-text="${menu.name}"></span>
             </a>
             <ul class="sub-menu" data-th-if="${#lists.size(menu.children)}">
