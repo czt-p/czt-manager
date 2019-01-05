@@ -192,19 +192,24 @@
     .searchArea{
       display: flex;
       justify-content: space-between;
-      .searchInput>div{
-        display: inline-block;
-        margin-right: 30px;
-        padding: 18px 4px;
-        .el-input {
-            width: auto!important;
-        }
-      }
-      .rightBtn{
-        align-items: center;
+      .searchInput{
         display: flex;
-        button{
-          border:none!important;
+        justify-content: space-between;
+        &>div{
+          display: inline-block;
+          margin-right: 30px;
+          padding: 18px 4px;
+          .el-input {
+            vertical-align: middle;
+            width: auto!important;
+          }
+        }
+        .rightBtn{
+          align-items: center;
+          display: flex;
+          button{
+            border:none!important;
+          }
         }
       }
     }
