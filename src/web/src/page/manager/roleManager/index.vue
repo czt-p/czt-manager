@@ -115,7 +115,7 @@
       padding-left: 10px;
     }
     .el-card{
-      height: calc(100% - 60px);
+      height: calc(100% - 10px);
     }
     .clearfix{
       button{

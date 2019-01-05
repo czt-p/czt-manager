@@ -189,7 +189,8 @@
         margin-right: 30px;
         padding: 18px 4px;
         .el-input {
-            width: auto!important;
+          vertical-align: middle;
+          width: auto!important;
         }
       }
       .rightBtn{
@@ -201,7 +202,7 @@
       }
     }
     .el-card{
-      height: calc(100% - 70px);
+      height: calc(100% - 90px);
     }
   }
 </style>

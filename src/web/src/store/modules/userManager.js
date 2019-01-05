@@ -11,7 +11,7 @@ const state = {
     query: ["name"],
     queryString: [],
     pageIndex: "1",
-    limit: "10",
+    limit: "20",
     orderBy: ""
   },
   options:{
