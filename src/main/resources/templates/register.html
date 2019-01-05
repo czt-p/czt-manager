@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8"/>
     <title>账号注册</title>
-    <link rel="stylesheet" href="../css/iconfont/iconfont.css" data-th-href="@{/css/iconfont/iconfont.css}" />
-    <link href="../css/reset.css" rel="stylesheet" data-th-href="@{/css/reset.css}" />
-    <link href="../css/global.css" rel="stylesheet" data-th-href="@{/css/global.css}" />
-    <link href="../../css/theme/theme-1.css" rel="stylesheet" data-th-href="@{/css/theme/theme-1.css}"/>
+    <link rel="stylesheet" href="../css/iconfont/iconfont.css" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/iconfont/iconfont.css}|" />
+    <link href="../css/reset.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/reset.css}|" />
+    <link href="../css/global.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/global.css}|" />
+    <link href="../../css/theme/theme-1.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/theme/theme-1.css}|"/>
 </head>
 <body>
 <article class="page">
@@ -225,7 +225,7 @@
 <footer class="foot" data-th-include="fragment/footer::footer">
 
 </footer>
-<script type="text/javascript" src="../js/libs/jquery.js" data-th-src="@{/js/libs/jquery-3.0.0.min.js}"></script>
-<script type="text/javascript" src="../js/register.js" data-th-src="@{/js/register.js}"></script>
+<script type="text/javascript" src="../js/libs/jquery.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/js/libs/jquery-3.0.0.min.js}|"></script>
+<script type="text/javascript" src="../js/register.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/js/register.js}|"></script>
 </body>
 </html>

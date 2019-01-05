@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8"/>
     <title data-th-text="${title}"></title>
-    <link rel="stylesheet" href="../css/iconfont/iconfont.css" data-th-href="@{/css/iconfont/iconfont.css}"/>
-    <link href="../css/reset.css" rel="stylesheet" data-th-href="@{/css/reset.css}" />
-    <link href="../css/global.css" rel="stylesheet" data-th-href="@{/css/global.css}" />
-    <link href="../css/theme/theme-3.css" rel="stylesheet" data-th-href="@{/css/theme/theme-3.css}"/>
-    <link href="../css/jquery.bxslider.css" rel="stylesheet" data-th-href="@{/css/jquery.bxslider.css}"/>
-    <script type="text/javascript" src="../../static/js/libs/jquery.js" data-th-src="@{/js/libs/jquery-3.0.0.min.js}"></script>
-    <script type="text/javascript" src="../../static/js/libs/jquery.bxslider.js" data-th-src="@{/js/libs/jquery.bxslider.js}"></script>
+    <link rel="stylesheet" href="../css/iconfont/iconfont.css" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/iconfont/iconfont.css}|"/>
+    <link href="../css/reset.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/reset.css}|" />
+    <link href="../css/global.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/global.css}|" />
+    <link href="../css/theme/theme-3.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/theme/theme-3.css}|"/>
+    <link href="../css/jquery.bxslider.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/jquery.bxslider.css}|"/>
+    <script type="text/javascript" src="../../static/js/libs/jquery.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/js/libs/jquery-3.0.0.min.js}|"></script>
+    <script type="text/javascript" src="../../static/js/libs/jquery.bxslider.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/js/libs/jquery.bxslider.js}|"></script>
     <link rel="stylesheet" data-th-href="@{${link}}"/>
 </head>
 <body>
@@ -23,6 +23,6 @@
 <footer class="foot" data-th-include="fragment/footer::footer">
 
 </footer>
-<script type="text/javascript" src="../../static/js/thymeleaf/index.js" data-th-src="@{/js/thymeleaf/index.js}"></script>
+<script type="text/javascript" src="../../static/js/thymeleaf/index.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/js/thymeleaf/index.js}|"></script>
 </body>
 </html>

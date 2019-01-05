@@ -12,7 +12,7 @@
             </a>
             <ul class="sub-menu" data-th-if="${#lists.size(menu.children)}">
                 <li data-th-each="menu2 : ${menu.children}" data-th-id="${menu2.id}">
-                    <a class="link" data-th-if="${not #lists.isEmpty(menu2.url)}" data-th-href="@{${menu2.href}}" data-th-text="${menu2.name}"></a>
+                    <a class="link" data-th-if="${not #lists.isEmpty(menu2.url)}" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{${menu2.href}}|" data-th-text="${menu2.name}"></a>
                     <a class="link disabled" data-th-if="${#lists.isEmpty(menu2.url)}" data-th-text="${menu2.name}" disabled="disabled"></a>
                 </li>
             </ul>

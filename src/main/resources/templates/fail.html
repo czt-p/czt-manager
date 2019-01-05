@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8"/>
     <title>账号注册</title>
-    <link rel="stylesheet" href="../css/iconfont/iconfont.css" data-th-href="@{/css/iconfont/iconfont.css}" />
-    <link href="../css/reset.css" rel="stylesheet" data-th-href="@{/css/reset.css}" />
-    <link href="../css/global.css" rel="stylesheet" data-th-href="@{/css/global.css}" />
+    <link rel="stylesheet" href="../css/iconfont/iconfont.css" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/iconfont/iconfont.css}|" />
+    <link href="../css/reset.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/reset.css}|" />
+    <link href="../css/global.css" rel="stylesheet" data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/css/global.css}|" />
 </head>
 <body>
 <article class="page">
@@ -104,7 +104,7 @@
         </form>
     </section>
 </article>
-<script type="text/javascript" src="../js/libs/jquery.js" data-th-src="@{/js/libs/jquery-3.0.0.min.js}"></script>
-<script type="text/javascript" src="../js/fail.js" data-th-src="@{/js/fail.js}"></script>
+<script type="text/javascript" src="../js/libs/jquery.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/js/libs/jquery-3.0.0.min.js}|"></script>
+<script type="text/javascript" src="../js/fail.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/js/fail.js}|"></script>
 </body>
 </html>
