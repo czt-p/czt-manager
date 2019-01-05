@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import store from "src/store/index"
-
+import { Base64 } from 'js-base64';
 class Entry {
   constructor({el,module}){
     this.module = module;

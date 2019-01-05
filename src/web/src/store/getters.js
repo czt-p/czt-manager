@@ -27,9 +27,20 @@ export const treeCheckData = state => {
 export const resentDialog = state => {
   return state[state.current].currentDialog;
 };
+//新增数据
+export const addObj = state => {
+  return state[state.current].addObj;
+};
 //通用响应结果
 export const result = state => {
   return state[state.current].result;
+};
+//角色管理樹形菜單
+// export const treeData = state => {
+//   return state[state.current].treeData;
+// };
+export const hasMenus = state => {
+  return state[state.current].hasMenus;
 };
 
 

@@ -15,7 +15,7 @@
         <el-row>
           <el-col :span="24">
             <div class="detail">
-              <label class="explain">角色描述</label>
+              <label class="explain">角色名称</label>
               <label class="result">
                 <el-input placeholder="请输入角色描述" size="mini" :value="currentRole.desc" name="desc" @change.native="inputChange"></el-input>
               </label>

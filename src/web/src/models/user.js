@@ -29,7 +29,7 @@ class User {
         case"createTime":
         case"modifyTime":
           if (this.defaultData[key] && this.defaultData[key] !== "") {
-            this.model[key] = new Date(this.defaultData[key]).Format("yyyy-MM-dd");
+            this.model[key] = new Date(this.defaultData[key]).Format("yyyy-MM-dd hh:mm:ss");
           } else {
             this.model[key] = "";
           }
@@ -41,9 +41,9 @@ class User {
           this.model.deals = this.defaultData.account == "root" ? [
             {text:"无权修改",type:"label"},
           ]:[
-            {text:"修改",id:"userChange",name:"userChange",type:"text",event:"change"},
-            {text:"删除",id:"userDelete",name:"userDelete",type:"text",event:"delete"},
-            {text:"密码重置",id:"passReset",name:"passReset",type:"text",event:"reset"}
+            {text:"密码重置",bgc:'#4A90E2',id:"passReset",name:"passReset",type:"button",event:"reset"},
+            {text:"修改",bgc:'#45BED9',id:"userChange",name:"userChange",type:"button",event:"change"},
+            {text:"删除",bgc:'#DB5550',id:"userDelete",name:"userDelete",type:"button",event:"delete"},
           ]
           break;
         default:

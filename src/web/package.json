@@ -5,12 +5,14 @@
   "author": "why.hy",
   "private": false,
   "scripts": {
-    "init":"node build/dev-pre.js",
+    "init": "node build/dev-pre.js",
     "dev": "node build/dev-server.js",
     "build": "node build/build.js"
   },
   "dependencies": {
-    "element-ui": "2.0.0-alpha.3",
+    "babel-preset-env": "^1.7.0",
+    "element-ui": "^2.4.11",
+    "js-base64": "^2.5.0",
     "lodash.debounce": "^4.0.8",
     "vue": "^2.4.2"
   },
@@ -33,9 +35,11 @@
     "function-bind": "^1.0.2",
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.17.2",
+    "immutable": "^4.0.0-rc.12",
     "jquery": "^3.1.1",
     "json-loader": "^0.5.4",
     "lodash": "^4.17.4",
+    "node-sass": "^4.11.0",
     "opn": "^4.0.2",
     "ora": "^0.3.0",
     "sass-loader": "^4.1.1",

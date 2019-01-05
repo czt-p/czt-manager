@@ -1,20 +1,46 @@
 <template>
   <div class="container">
-    <SearchVue v-bind:current="currentTable"></SearchVue>
+    <!-- <SearchVue v-bind:current="currentTable"></SearchVue> -->
+    <div class="title">账号管理</div>
+    <div class="searchArea">
+      <div class="searchInput">
+        <!-- <div class="searchTime">
+          <span>时间：</span>
+          <el-date-picker
+            v-model="searchObj.searchTime"
+            type="datetimerange"
+            :editable='false'
+            size='small'
+            value-format="timestamp"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
+          </el-date-picker>
+        </div> -->
+        <div class="askName">
+          账号名称：<el-input size='small' @change.native="inputChange" name="name" placeholder="请输入账号名称"></el-input>
+        </div>
+      </div>
+      <div class="rightBtn">
+        <el-button type="primary" icon="el-icon-search" size="small" name="submit" @click.native="onClickHandler">开始搜索</el-button>
+        <el-button type="primary" icon="el-icon-plus" size="small" name="add" @click.native="onTopClickHandler('add')" style='background:#40AB9B'>新增</el-button>
+      </div>
+    </div>
     <TableVue v-bind:currentTable="currentTable">
-      <template slot="caption">
+      <!-- <template slot="caption">
         <div class="clearfix">
           <span>用户列表</span>
-          <el-button v-for="deal in options.tops"
+          <el-button v-for="(deal,index) in options.tops"
                      :type="deal.type"
-                     size="mini"
+                     size="small"
+                     :key='index'
                      style="float: right;margin-left:5px"
                      @click.native="onTopClickHandler(deal.event)"
                      :name="deal.event">
             {{deal.text}}
           </el-button>
         </div>
-      </template>
+      </template> -->
     </TableVue>
     <br/>
     <DialogVue>
@@ -62,6 +88,10 @@
       }),
     },
     methods:{
+      inputChange(e) {
+        let srcElement = e.srcElement || e.target, name = srcElement.getAttribute("name"), value = srcElement.value;
+        this.$store.dispatch(this.currentTable + '/resetParam', {[name]: value});
+      },
       onTopClickHandler(type){
         switch(type){
           case"add":
@@ -73,6 +103,24 @@
           default:
             break;
         }
+      },
+      onClickHandler(e) {
+        let srcElement = e.srcElement || e.target, eventName = srcElement.getAttribute("name");
+        eventName = !eventName ? srcElement.parentNode.getAttribute("name") : eventName;//兼容element-ui 组合标签
+        switch (eventName) {
+          case"submit":
+            this.onSubmit();
+            break;
+          case"add":
+            this.onAdd();
+            break;
+          default:
+            // this.onClickDefault(eventName);
+            break;
+        }
+      },
+      onSubmit(){
+        this.$store.dispatch(this.currentTable+"/getItems");
       },
       handleAdd(){
         this.$store.dispatch(this.currentTable+'/topHandler',"add");
@@ -120,6 +168,40 @@
   }
 </script>
 
-<style lang="sass" type="text/css">
+<style lang="scss" type="text/css">
   @import "static/scss/container";
+  .container{
+    .title{
+      border-left:4px solid rgba(74,144,226,1);
+      height:18px;
+      font-size:18px;
+      font-family:SourceHanSansCN-Medium;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+      line-height: 16px;
+      padding-left: 10px;
+    }
+    .searchArea{
+      display: flex;
+      justify-content: space-between;
+      .searchInput>div{
+        display: inline-block;
+        margin-right: 30px;
+        padding: 18px 4px;
+        .el-input {
+            width: auto!important;
+        }
+      }
+      .rightBtn{
+        align-items: center;
+        display: flex;
+        button{
+          border:none!important;
+        }
+      }
+    }
+    .el-card{
+      height: calc(100% - 70px);
+    }
+  }
 </style>

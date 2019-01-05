@@ -6,6 +6,8 @@ import * as getters from './getters'
 
 import userManager from './modules/userManager'
 import roleManager from './modules/roleManager'
+import questionsManager from './modules/questionsManager'
+import subsidizeManager from './modules/subsidizeManager'
 
 Vue.use(Vuex)
 
@@ -28,13 +30,16 @@ const mutations = {
   }
 }
 export default new Vuex.Store({
-  strict: process.env.NODE_ENV !== 'production',
+  // strict: process.env.NODE_ENV !== 'production',
+  strict: false,
   state,
   actions,
   getters,
   mutations,
   modules:{
     userManager,
-    roleManager
+    roleManager,
+    questionsManager,
+    subsidizeManager
   }
 })

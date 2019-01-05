@@ -1,13 +1,14 @@
 <template>
   <div class="container">
-    <br/>
     <TableVue v-bind:currentTable="currentTable">
       <template slot="caption">
         <div class="clearfix">
-          <span>角色列表</span>
-          <el-button v-for="deal in options.tops"
+          <span class='title'>角色列表</span>
+          <el-button v-for="(deal,index) in options.tops"
                      :type="deal.type"
-                     size="mini"
+                     size="small"
+                     :key='index'
+                     icon="el-icon-plus"
                      style="float: right"
                      @click.native="onTopClickHandler(deal.event)"
                      :name="deal.event">
@@ -16,7 +17,6 @@
         </div>
       </template>
     </TableVue>
-    <br/>
     <DialogVue>
       <template slot="addRole">
         <AddVue></AddVue>
@@ -94,12 +94,33 @@
       this.$store.dispatch("reSetSate","roleManager");
       Util.setItem("currentVue",{vue:"roleManager"});
     },
-    create(){
-      console.log(2)
+    created(){
+      // console.log(2)
     }
   }
 </script>
 
-<style lang="sass" type="text/css">
+<style lang="scss" type="text/css">
   @import "static/scss/container";
+  .container{
+    .title{
+      border-left:4px solid rgba(74,144,226,1);
+      height:18px;
+      display: inline-block;
+      font-size:18px;
+      font-family:SourceHanSansCN-Medium;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+      line-height: 16px;
+      padding-left: 10px;
+    }
+    .el-card{
+      height: calc(100% - 60px);
+    }
+    .clearfix{
+      button{
+        background:#40AB9B;
+      }
+    }
+  }
 </style>

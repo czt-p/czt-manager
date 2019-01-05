@@ -2,7 +2,7 @@
   <el-tree
     ref="simpleTree"
     class="tree-common scrollbar"
-    :data="menus"
+    :data="treeData"
     show-checkbox
     node-key="id"
     :default-checked-keys="hasMenus"
@@ -20,8 +20,8 @@
     name:"treeSaw",
     computed: mapGetters({
      /* roleMenus:"roleMenus"*/
-      menus: 'allMenuDisabled',
-      hasMenus:"roleMenusId"
+      treeData: 'treeData',
+      hasMenus:"hasMenus"
     }),
     data() {
       return {

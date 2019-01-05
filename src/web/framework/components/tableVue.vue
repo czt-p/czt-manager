@@ -4,31 +4,44 @@
       <slot :name="options.caption"></slot>
     </template>
     <el-table  ref="multipleTable" :data="tableData"
+                fit
+                stripe
                  :highlight-current-row="options.highlight"
                  @selection-change="selectionChange"
                  @cell-click="tableCellClick"
                  @select-all="selectAll"
                  @current-change="handleRowChange"
       >
-        <el-table-column :type="options.type" width="50"></el-table-column>
-        <el-table-column v-for="item in options.th"
+        <el-table-column :type="options.type" width="50" label="序号">
+          <template scope="scope">
+              <span v-if='pageData'>{{ pageData.limit * (pageData.pageIndex - 1)  + 1 + scope.$index}}</span>
+              <span v-else>{{scope.$index+1}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column v-for="(item,index) in options.th"
                          :property="item.property"
-                         :label="item.label">
+                         :min-width='item.width'
+                         :label="item.label" :key='index'>
+          <template slot-scope="scope">
+            <label v-if='item.type=="time"'>{{new Date(scope.row[item.property]-0).Format('yyyy-MM-dd hh:mm:ss')}}</label>
+            <label v-else>{{scope.row[item.property]}}</label>
+          </template>
         </el-table-column>
         <el-table-column v-if="options.deals && options.deals.max > 0"
                          :label="options.deals.label || '操作'"
                          align="left"
                          :width="options.deals.max*60">
           <template scope="scope" >
-            <template v-for="deal in scope.row.deals" >
-              <label v-if="deal.type == 'label'" class="deal-label">
+            <template v-for="(deal,index) in scope.row.deals" >
+              <label v-if="deal.type == 'label'" class="deal-label" :key='index'>
                 {{deal.text}}
               </label>
               <el-button v-else
                          :type="deal.type"
                          size="mini"
+                         :style='{background:deal.bgc,color:"#fff",border:"none"}'
                          @click.native="onClickHandler(scope.$index, scope.row,deal.event)"
-                         :name="deal.event">
+                         :name="deal.event" :key='index'>
                 {{deal.text}}
               </el-button>
             </template>
@@ -40,7 +53,7 @@
         <el-pagination
           @current-change="handleCurrentPage"
           :current-page="pageData.pageIndex"
-          layout="prev, pager, next"
+          layout="total,prev, pager, next"
           :page-size="pageData.limit"
           :total="pageData.total">
         </el-pagination>
@@ -48,35 +61,6 @@
     </el-row>
     </el-card>
 </template>
-
-<style>
-  .el-table td, .el-table th {
-    padding: 4px 0;
-  }
-  .page-nation{
-    padding:10px 10px 0 10px;
-  }
-  .el-pager li {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin: 0 3px;
-    min-width: 25px;
-    color: #5a5e66;
-  }
-  .el-pager li.active+li {
-    border: 1px solid #ccc;
-  }
-  .el-pagination .btn-prev,.el-pagination .btn-next {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    min-width: 25px;
-  }
-  .deal-label{
-    font-size: 12px;
-    color: #5a5e66;
-  }
-</style>
-
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import Util from "framework/util/util"
@@ -150,6 +134,12 @@
           case"delete":
             this.handleDelete(row);
             break;
+          case"view":
+            this.$store.dispatch(this.currentTable+'/openViewDialog',row);
+            break;
+          case"add":
+            this.$store.dispatch(this.currentTable+'/addItem',row);
+            break;
           default:
             break;
         }
@@ -169,7 +159,8 @@
         this.$store.dispatch(this.currentTable+'/resetPass',row);
       },
       handleRowChange(val,old){
-        console.log(val,old);
+        // this.$store.dispatch(this.currentTable+'/trHandler',val);
+        // console.log(val,old);
       },
       //单体删除
       handleDelete(row){
@@ -200,7 +191,7 @@
         });
       },
       handleCurrentPage(pageIndex){
-        console.log(pageIndex)
+        // console.log(pageIndex)
         this.$store.dispatch(this.currentTable + '/pageChange',pageIndex);
       },
       onDelete(){
@@ -230,7 +221,7 @@
         this.$message({
           type: type,
           message:msg,
-          duration:"5000"
+          duration:"3000"
         });
       }
     },
@@ -240,16 +231,49 @@
           data.success ? this.success(type,data) : this.error(data);
         },
         deep:true//对象内部的属性监听，也叫深度监听
+      },
+      tableData:function(val){
+        val.length>0?this.$refs.multipleTable.setCurrentRow(this.tableData[0]):'';
       }
     },
     beforeCreate(){
-      console.log()
+      // console.log()
     },
     created () {
       this.currentTable = Util.getItem("currentVue").vue;
       this.$store.dispatch(this.currentTable + '/getItems');
+    },
+    mounted(){
+      
     }
   }
 </script>
 <!--table 组件 api-->
+<style>
+  .el-table td, .el-table th {
+    padding: 4px 0;
+  }
+  .page-nation{
+    padding:10px 10px 0 10px;
+  }
+  .el-pager li {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 3px;
+    min-width: 25px;
+    color: #5a5e66;
+  }
+  .el-pager li.active+li {
+    border: 1px solid #ccc;
+  }
+  .el-pagination .btn-prev,.el-pagination .btn-next {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-width: 25px;
+  }
+  .deal-label{
+    font-size: 12px;
+    color: #5a5e66;
+  }
+</style>
 

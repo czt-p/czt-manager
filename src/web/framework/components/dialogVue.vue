@@ -6,9 +6,10 @@
     :width="currentDialog.width"
     :modal-append-to-body="true"
     :append-to-body="true"
+    @open='open'
     :before-close="handleClose">
        <slot :name="currentDialog.template"></slot>
-      <span slot="footer">
+      <span slot="footer" v-if='currentDialog.template!="viewRole"'>
         <el-button @click="handleClose" size="mini">取 消</el-button>
         <el-button type="primary" @click.native="sure" size="mini">确 定</el-button>
       </span>
@@ -33,7 +34,8 @@
     },
     computed: {
       ...mapGetters({
-         currentDialog: "resentDialog"
+         currentDialog: "resentDialog",
+         addObj: "addObj",
       }),
     },
     methods: {
@@ -48,10 +50,41 @@
           type:flag,
           dialog:this.currentDialog
         });
+      },
+      open(){
+        // console.log('jjjjjjjjjjjjjjjjjjjjjjjjjjjjj==========')
+        for (const key in this.addObj) {
+          this.addObj[key] = this.addObj[key] instanceof Array?[]:'';
+        }
       }
     }
   };
 </script>
-<style lang="sass" type="text/css">
+<style lang="scss">
   @import "framework/scss/dialog";
+  .addRole,.changeRole{
+    padding:20px!important;
+    .title{
+      display: inline-block;
+      width: 100px;
+    }
+    .content{
+      display: inline-block;
+      width: 80%;
+      vertical-align: text-top;
+    }
+    .el-input{
+      width: 80%!important;
+    }
+    .el-cascader {
+      width: 80%!important;
+      .el-input{
+        width:100%!important;
+        .el-input__inner{
+          height:32px;
+          line-height: 32px!important;
+        }
+      }
+    }
+  }
 </style>

@@ -19,12 +19,12 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 9090,
+    port: 3333,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       "/develop":{
-        target: 'http://127.0.0.1:8080/',
+        target: 'http://192.168.0.65:8080',
         changeOrigin: true,
         pathRewrite: {
           '^/develop':''

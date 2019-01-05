@@ -1,0 +1,17 @@
+/.idea/
+/target/
+*.iml
+*.xml.versionsBackup
+/logback/
+/node_modules/
+/.idea/
+/target/
+.DS_Store
+node_modules/
+npm-debug.log
+.idea/
+.idea
+/evrc-web.ipr
+/evrc-web.iws
+/evrc-web.iml
+/dataSources/

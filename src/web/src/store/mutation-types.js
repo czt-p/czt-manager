@@ -8,6 +8,7 @@ export const TABLE_SELECTED="TABLE_SELECTED"//表格选择
 export const DIALOG_CHANGE = 'DIALOG_CHANGE' //弹出框改变
 export const DIALOG_CLOSE = 'DIALOG_CLOSE' //弹出框关闭
 export const ADD = 'ADD' //
+export const VIEW = 'VIEW' //
 export const CHANGE = 'CHANGE' //
 export const SURE = 'SURE' //
 export const RESET_ADD = 'RESET_ADD' //

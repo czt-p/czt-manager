@@ -1,9 +1,10 @@
 /**
  * Created by Administrator on 2017/4/7.
  */
-import Role from "src/models/role";
-class RoleList{
+import Questions from "src/models/questions";
+class QuestionsList{
     constructor(data){
+        // console.log('constructor', data)
         this.default = data;
         this.models= [];
         this.reset(this.default);
@@ -11,7 +12,7 @@ class RoleList{
     reset(items){
         let _this = this;
         items.map(function(item){
-           let simple = new Role(item);
+           let simple = new Questions(item);
             _this.models.push(simple.getModel());
        })
     }
@@ -22,6 +23,6 @@ class RoleList{
         return this.models[i]
     }
 }
-export default RoleList
+export default QuestionsList
 
 

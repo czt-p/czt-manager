@@ -5,14 +5,14 @@
  * Date: 2016/12/29
  * Time: 12:52
  */
-class Role {
+class Questions {
   constructor(data) {
     this.default = {
-      id: "",//用户ID
-      account: "",//用户账号
-      password:"",//用户密码
-      createTime:"",//创建时间
-      modifyTime:"",//编辑时间
+      id: "",//ID
+      addtime: "",//
+      answer:"",//答案
+      question:"",//问题
+      updatedTime:"",//跟新时间
       deals: "",//操作
     };
     this.model = {};
@@ -29,7 +29,7 @@ class Role {
         case"createTime":
         case"modifyTime":
           if (this.defaultData[key] && this.defaultData[key] !== "") {
-            this.model[key] = new Date(this.defaultData[key]).Format("yyyy-MM-dd hh:mm:ss");
+            this.model[key] = new Date(this.defaultData[key]).Format("yyyy-MM-dd");
           } else {
             this.model[key] = "";
           }
@@ -38,13 +38,10 @@ class Role {
           this.model.fileIds = this.getFilesIds(this.defaultData.files);
           break;
         case"deals":
-          this.model.deals = 
-          // this.defaultData.name=="root" ? [
-          //   {text:"无权修改",type:"label"},
-          // ]:
-          [
+          this.model.deals = [
+            {text: "查看",bgc:'#7269D5', id: "btnView", name: "view", type: "button", event: "view"},
             {text: "编辑",bgc:'#45BED9', id: "btnChange", name: "change", type: "button", event: "change"},
-            {text: "删除",bgc:'#DB5550', id: "btnDele", name: "delete", type: "danger", event: "delete"},
+            {text: "删除",bgc:'#DB5550', id: "btnDele", name: "delete", type: "button", event: "delete"},
           ]
           break;
         default:
@@ -65,8 +62,8 @@ class Role {
   }
 
   static DEFAULT() {
-    return new Role().default;
+    return new Questions().default;
   }
 }
 
-export default Role
+export default Questions

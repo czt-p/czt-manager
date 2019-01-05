@@ -4,6 +4,7 @@
 import Final from "src/config"
 import Qs from "qs"
 import $ from "jquery"
+import { MessageBox } from 'element-ui';
 
 export default class XHR {
     constructor(options){
@@ -40,6 +41,20 @@ export default class XHR {
         return obj.param&&obj.param.method==="GET" ? true : false;
     }
     static complete(xhr,callBack){
+      // console.log('complete',xhr)
+      if (xhr.status.toString() === '403') {
+        // alert("登陆信息失效，请重新登陆!");
+        MessageBox({
+          title: "提示",
+          message: '登录信息失效，请重新登录!'
+        }).then(res => {
+          // console.log('res',res)
+          window.location.href = "/login";
+        }).catch(err => {
+          window.location.href = "/login";
+        })
+        return false;
+      }
       let status = xhr.status.toString().substring(0,1);
       switch(status){
         case"3":
@@ -190,7 +205,7 @@ export default class XHR {
         method : 'GET'
       }).then((data)=>{
         let res = data.data;
-        console.log({res});
+        // console.log({res});
       });
     }
     static ajaxGetForArray(obj,callBack){

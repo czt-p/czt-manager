@@ -27,14 +27,16 @@ const state = {
       caption:"caption",
       th:[
         {property:"name",label:"用户名称"},
-        {property:"account",label:"用户账号"}
+        {property:"account",label:"用户账号"},
+        {property:"createTime",label:"创建时间"},
+        {property:"modifyTime",label:"修改时间"},
       ],
       deals:{
-        max:3
+        max:4
       },
       tops:[
-        {text:"新增",id:"userAdd",name:"userAdd",type:"primary",event:"add"},
-        {text:"批量删除",id:"userDeletes",name:"userDeletes",type:"info",event:"deletes"}
+        // {text:"新增",id:"userAdd",name:"userAdd",type:"primary",event:"add"},
+        // {text:"批量删除",id:"userDeletes",name:"userDeletes",type:"info",event:"deletes"}
       ]
     },
   },
@@ -272,7 +274,7 @@ const actions = {
   },
   //修改密码
   resetPass({commit, state}, data){
-    console.log(data.id);
+    // console.log(data.id);
     XHR.restfulMiddle({
       url: state.url.reset,
       method: "PUT",
@@ -303,6 +305,12 @@ const actions = {
     commit(types[state.actions.current], data);
     commit(types[state.actions.change]);
     commit(types[state.actions.has],data.roles)
+  },
+  getMenus(){
+
+  },
+  trHandler({commit,state},data){
+    console.log('row',val)
   }
 }
 const mutations = {

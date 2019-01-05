@@ -5,3 +5,11 @@
 *.iws
 /.ideaDataSources/
 /data/
+/node_modules/
+/.idea/
+/target/
+.DS_Store
+node_modules/
+npm-debug.log
+.idea/
+.idea

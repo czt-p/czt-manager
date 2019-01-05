@@ -2,6 +2,7 @@
  * Created by Administrator on 2016/8/19.
  * Util tool to format data
  */
+var BASE64 = require('./base64.js');
 import Immutable from "immutable";
 export default class Util {
     constructor(options){
@@ -220,16 +221,42 @@ export default class Util {
         params.queryString=[];
         params.query.map((param)=>{//name,role
           if(params[param]&&params[param]!==""){
-            params.queryString.push(param+"~like~%"+params[param]+"%")
+            params.queryString.push(param+"~like~%"+params[param].trim()+"%")
           }
         })
       }
      return params
     }
+    static resetParamEq(params) {
+      let resultParam = {...params.page, queryString: {}};
+      if (params.query && params.query.length > 0) {
+        params.query.map((param) => { //name,role
+        //   console.log('params', params, param)
+          params[param] = params[param] && !(params[param] instanceof Array) ? typeof (params[param]) == 'number' ? (params[param] + '').trim() : params[param].trim() : params[param]; //去除参数的前后空格
+          // 其他字段模糊搜索
+          resultParam.queryString[param] = params[param];   
+        })
+      }
+      resultParam.queryString = BASE64.urlsafe_encode(JSON.stringify(resultParam.queryString))
+      return resultParam
+    }
     static empty(data){
       for(let k in data){
         data[k]="";
       }
+    }
+    static base64Encode(input) {
+      var rv;
+      rv = encodeURIComponent(input);
+      rv = unescape(rv);
+      rv = window.btoa(rv);
+      return rv;
+    }
+    static base64Decode(input) {
+      rv = window.atob(input);
+      rv = escape(rv);
+      rv = decodeURIComponent(rv);
+      return rv;
     }
 }
 Util.prototype={
