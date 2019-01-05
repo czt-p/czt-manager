@@ -23,7 +23,7 @@ import java.util.List;
 @JsonViewException
 @RestController
 @RequestMapping("/examRecords")
-@Api(description = "资助政策管理类操作")
+@Api(description = "评测记录管理类操作")
 public class ExamRecordManagerController {
 
     @Autowired
