@@ -230,7 +230,7 @@ const actions = {
   //弹出窗口
   dialogSure({dispatch, state},data){
     let {dialog} = data;
-    console.log('dialogSure',data)
+    // console.log('dialogSure',data)
     switch(dialog.template){
       case state.template.addRole:
         dispatch("addItem")

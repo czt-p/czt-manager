@@ -160,6 +160,7 @@ export default class XHR {
     static restfulMiddle(param,callBack){
     let url = XHR.decodeURL(param.url),think=param.think;
         let regUrl = url.replace("{id}",think.id);
+        // console.log('regUrl',regUrl)
         if(param.method === "GET"||param.method === "DELETE"){
           $.ajax({
             url:regUrl,

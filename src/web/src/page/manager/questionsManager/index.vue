@@ -133,9 +133,11 @@
     .searchArea{
       display: flex;
       justify-content: space-between;
+      align-items: center;
       .searchInput{
         display: flex;
         justify-content: space-between;
+        align-items: center;
         &>div{
           display: inline-block;
           margin-right: 30px;
