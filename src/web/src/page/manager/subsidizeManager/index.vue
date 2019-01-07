@@ -97,7 +97,7 @@
         </div>
       </template>
     </DialogVue>
-    
+
   </div>
 </template>
 <script>
@@ -107,7 +107,7 @@
   import Util from "framework/util/util"
   import TableVue from 'framework/components/TableVue'
   import DialogVue from 'framework/components/dialogVue'
-  
+
 
   export default {
     name: 'subsidizeManager',
@@ -119,7 +119,7 @@
           searchArea:[],
           searchName:'',
         },
-        
+
         areas:[],//全国区划列表
         props: {
           value: 'code',
@@ -204,6 +204,12 @@
           .el-input {
             vertical-align: middle;
             width: auto!important;
+          }
+          .el-cascader{
+            line-height:0!important;
+            .el-input__prefix, .el-input__suffix{
+              top:-3px;
+            }
           }
         }
         .rightBtn{
