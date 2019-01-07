@@ -30,7 +30,7 @@ public class ExamRecordManagerController {
     private ExamRecordService examRecordService;
 
     @GetMapping
-    @ApiOperation(value = "批量查询资助政策操作，支持分页查询", produces = "application/json;charset=utf-8")
+    @ApiOperation(value = "批量查询评测记录操作，支持分页查询", produces = "application/json;charset=utf-8")
     @ApiImplicitParams({@ApiImplicitParam(name = "pageIndex", value = "分页页码", defaultValue = "1", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "返回行数", defaultValue = "2147483647", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "queryString", value = "查询条件", defaultValue = "field~Eq~1234", dataType = "String", paramType = "query", allowMultiple = true),
@@ -46,7 +46,7 @@ public class ExamRecordManagerController {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "根据id查询单个资助政策", produces = "application/json;charset=utf-8")
+    @ApiOperation(value = "根据id查询单个评测记录", produces = "application/json;charset=utf-8")
     public ResponseResult<ExamRecordForm.OwnerWithDetails> querySubsidyPolicy(@PathVariable("id") Integer id) {
         return new ResponseResult<>(examRecordService.findExamRecord(id));
     }
