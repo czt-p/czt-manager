@@ -690,7 +690,7 @@
     line-height:43px;
 }
 .menu .temp-active>a>i, .menu .temp-active>a>span{
-    color:#fff;
+    color:#000;
 }
 .sub-menu > li:before{
     content: "";
