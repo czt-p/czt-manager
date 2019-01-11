@@ -13,15 +13,16 @@ insert into t_exam_question(id, content, type, order_number, details, module_id)
 insert into t_exam_question(id, content, type, order_number, details, module_id) values (4, '企业的科技人员占企业当年职工总数的比例是否高于10%', 1, 4, '[{"id":1,"content":"是","score":1},{"id":2,"content":"否","score":0}]', 1);
 insert into t_exam_question(id, content, type, order_number, details, module_id) values (5, '企业近三个会计年度（实际经营期不满三年的按实际经营时间计算，下同）的研究开发费用总额占同期销售收入总额的比例符合如下要求（最近一年指申报高新的上一年度）：1. 最近一年销售收入小于5,000万元（含）的企业，比例不低于5%；2. 最近一年销售收入在5,000万元至2亿元（含）的企业，比例不低于4%；3. 最近一年销售收入在2亿元以上的企业，比例不低于3%。其中，企业在中国境内发生的研究开发费用总额占全部研究开发费用总额的比例不低于60%；', 1, 5, '[{"id":1,"content":"是","score":1},{"id":2,"content":"否","score":0}]', 1);
 insert into t_exam_question(id, content, type, order_number, details, module_id) values (6, '近一年企业自主研发的产品（服务）收入占企业同期总收入的比例是否高于60%；', 1, 6, '[{"id":1,"content":"是","score":1},{"id":2,"content":"否","score":0}]', 1);
-insert into t_exam_question(id, content, type, order_number, details, module_id) values (7, '企业申请认定前三年内是否发生重大安全、重大质量事故或严重环境违法行为。', 1, 17, '[{"id":1,"content":"是","score":0},{"id":2,"content":"否","score":1}]', 1);
+insert into t_exam_question(id, content, type, order_number, details, module_id) values (7, '企业申请认定前三年内是否发生重大安全、重大质量事故或严重环境违法行为。', 1, 7, '[{"id":1,"content":"是","score":0},{"id":2,"content":"否","score":1}]', 1);
 
-insert into t_exam_question(id, content, type, order_number, details, module_id) values (8, '知识产权数量（）', 1, 1, '', 2);
-insert into t_exam_question(id, content, type, order_number, details, module_id) values (9, '知识产权获得方式（）', 1, 1, '', 2);
-insert into t_exam_question(id, content, type, order_number, details, module_id) values (10, '知识产权与公司的主营业务的关联性（）', 1, 1, '', 2);
-insert into t_exam_question(id, content, type, order_number, details, module_id) values (11, '近三年科技成果转化数量年平均（）', 1, 1, '', 2);
-insert into t_exam_question(id, content, type, order_number, details, module_id) values (12, '企业是否建立了研发组织管理制度并有效实施（）', 1, 1, '', 2);
-insert into t_exam_question(id, content, type, order_number, details, module_id) values (13, '近三年企业是否签订有效的产学研协议（）', 1, 1, '', 2);
-insert into t_exam_question(id, content, type, order_number, details, module_id) values (14, '近三年净资产增长率（）', 1, 1, '', 2);
+insert into t_exam_question(id, content, type, order_number, details, module_id) values (8, '知识产权数量（）', 1, 1, '[{"id":1,"content":"1 项及以上 （Ⅰ类：包括发明专利（含国防专利）、植物新品种、国家级农作物品种、国家新药、国家一级中药保护品种、集成电路布图设计专有权等）","score":14},{"id":2,"content":"5 项及以上 （Ⅱ类：包括实用新型专利、外观设计专利、软件著作权等（不含商标））","score":11},{"id":3,"content":"3-4 项及以上 （Ⅱ类：包括实用新型专利、外观设计专利、软件著作权等（不含商标））","score":6},{"id":4,"content":"1-2 项及以上 （Ⅱ类：包括实用新型专利、外观设计专利、软件著作权等（不含商标））","score":2},{"id":5,"content":"0 项","score":0}]', 2);
+insert into t_exam_question(id, content, type, order_number, details, module_id) values (9, '知识产权获得方式（）', 1, 2, '[{"id":1,"content":"仅有自主研发","score":6},{"id":2,"content":"既有自主研发也有受让、受赠和并购","score":4},{"id":3,"content":"仅有受让、受赠和并购等","score":2}]', 2);
+insert into t_exam_question(id, content, type, order_number, details, module_id) values (10, '知识产权与公司的主营业务的关联性（）', 1, 3, '[{"id":1,"content":"强","score":7},{"id":2,"content":"较强","score":5},{"id":3,"content":"一般","score":3},{"id":4,"content":"较弱","score":1},{"id":5,"content":"无","score":0}]', 2);
+insert into t_exam_question(id, content, type, order_number, details, module_id) values (11, '近三年科技成果转化数量年平均（）', 1, 4, '[{"id":1,"content":"6项及以上","score":28},{"id":2,"content":"5项","score":27},{"id":3,"content":"4项","score":22},{"id":4,"content":"3项","score":16},{"id":5,"content":"2项","score":10},{"id":6,"content":"1项","score":3},{"id":7,"content":"2项","score":0}]', 2);
+insert into t_exam_question(id, content, type, order_number, details, module_id) values (12, '企业是否建立了研发组织管理制度并有效实施（）', 1, 5, '[{"id":1,"content":"是","score":15},{"id":2,"content":"否","score":0}]', 2);
+insert into t_exam_question(id, content, type, order_number, details, module_id) values (13, '近三年企业是否签订有效的产学研协议（）', 1, 6, '[{"id":1,"content":"是","score":3},{"id":2,"content":"否","score":0}]', 2);
+insert into t_exam_question(id, content, type, order_number, details, module_id) values (14, '近三年净资产增长率（）', 1, 7, '[{"id":1,"content":"≥35%","score":9},{"id":2,"content":"25%(含)~35%","score":7},{"id":3,"content":"15%（含）~25%","score":5},{"id":4,"content":"5%（含）~15%","score":3},{"id":5,"content":"0~5%","score":1},{"id":6,"content":"≤0","score":0}]', 2);
+insert into t_exam_question(id, content, type, order_number, details, module_id) values (15, '近三年销售收入增长率（）', 1, 8, '[{"id":1,"content":"≥35%","score":9},{"id":2,"content":"25%(含)~35%","score":7},{"id":3,"content":"15%（含）~25%","score":5},{"id":4,"content":"5%（含）~15%","score":3},{"id":5,"content":"0~5%","score":1},{"id":6,"content":"≤0","score":0}]', 2);
 
 create table t_exam_record(id int not null,company_name varchar(250) not null,telephone varchar(25) not null,score double not null,result varchar(250) not null,details varchar(1024) not null,exam_time datetime,primary key(id));
 
