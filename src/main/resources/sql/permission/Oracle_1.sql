@@ -15,4 +15,4 @@ INSERT INTO r_user_role(user_id,role_id) VALUES(1,0);
 INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (1, '系统管理', 'Hui-iconfont-system', null, '900', 'N')
 INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (2, '账号管理', null, 'manager/userManager', '900100', 'N')
 INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (3, '角色管理', null, 'manager/roleManager', '900200', 'N')
-INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (4, '系统日志', null, 'manager/logManager', '900400', 'N')
+-- INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (4, '系统日志', null, 'manager/logManager', '900400', 'N')
