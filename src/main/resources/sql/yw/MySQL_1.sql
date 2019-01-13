@@ -1,12 +1,12 @@
 -- 资助政策表 --
-create table t_subsidy_policy(id int not null,name varchar(250) not null,region_code varchar(50) not null,content varchar(2048) not null,create_time datetime,modify_time datetime,primary key (id));
+create table t_subsidy_policy(id int not null,name varchar(250) not null,region_code varchar(50) not null,content text not null,create_time datetime,modify_time datetime,primary key (id));
 insert into t_id_generator(id_key,id_value) values ('subsidyPolicy',100);
 
 create table t_exam_module(id int not null,name varchar(250) not null,primary key (id));
 insert into t_exam_module(id, name) values (1, '基础评估');
 insert into t_exam_module(id, name) values (2, '高新评分');
 
-create table t_exam_question(id int not null,content varchar(1024) not null,type int not null,order_number int not null,details varchar(1024),module_id int,primary key (id));
+create table t_exam_question(id int not null,content text not null,type int not null,order_number int not null,details text,module_id int,primary key (id));
 insert into t_exam_question(id, content, type, order_number, details, module_id) values (1, '企业成立时间是否满一年（注：公司注册日至高新申报时间）', 1, 1, '[{"id":1,"content":"是","score":1},{"id":2,"content":"否","score":0}]', 1);
 insert into t_exam_question(id, content, type, order_number, details, module_id) values (2, '公司是否存在自主开发的产品（服务）', 1, 2, '[{"id":1,"content":"是","score":1},{"id":2,"content":"否","score":0}]', 1);
 insert into t_exam_question(id, content, type, order_number, details, module_id) values (3, '企业是否拥有与主营业务相关的知识产权（专利、软著等）', 1, 3, '[{"id":1,"content":"是","score":1},{"id":2,"content":"否","score":0}]', 1);
