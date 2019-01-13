@@ -14,7 +14,8 @@
     "element-ui": "^2.4.11",
     "js-base64": "^2.5.0",
     "lodash.debounce": "^4.0.8",
-    "vue": "^2.4.2"
+    "vue": "^2.4.2",
+    "vue-quill-editor": "^3.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
