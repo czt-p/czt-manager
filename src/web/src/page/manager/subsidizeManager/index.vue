@@ -54,7 +54,19 @@
           <span class="title">政策名称：</span><el-input size='small' v-model="addObj.name" placeholder="请输入政策名称"></el-input>
         </div>
         <div class="addRole questionName">
-          <span class="title">政策内容：</span><el-input size='small' v-model="addObj.content" placeholder="请输入政策内容"></el-input>
+          <span class="title">政策内容：</span>
+          <!-- <el-input size='small' v-model="addObj.content" placeholder="请输入政策内容">
+          </el-input> -->
+          <div class="edit_container">
+            <quill-editor 
+                class="editor"
+                v-model="addObj.content" 
+                ref="myQuillEditor" 
+                :options="editorOption" 
+                @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
+                @change="onEditorChange($event)">
+            </quill-editor>
+        </div>
         </div>
       </template>
       <template slot="changeRole">
@@ -73,7 +85,18 @@
           <span class="title">政策名称：</span><el-input size='small' v-model="sendInfo.name" placeholder="请输入政策名称"></el-input>
         </div>
         <div class="changeRole questionName">
-          <span class="title">政策内容：</span><el-input size='small' v-model="sendInfo.content" placeholder="请输入政策内容"></el-input>
+          <span class="title">政策内容：</span>
+          <!-- <el-input size='small' v-model="sendInfo.content" placeholder="请输入政策内容"></el-input> -->
+          <div class="edit_container">
+            <quill-editor 
+                class="editor"
+                v-model="sendInfo.content" 
+                ref="myQuillEditor" 
+                :options="editorOption" 
+                @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
+                @change="onEditorChange($event)">
+            </quill-editor>
+        </div>
         </div>
       </template>
       <template slot="viewRole">
@@ -93,7 +116,18 @@
           <span class="title">政策名称：</span><span class='content'>{{sendInfo.name}}</span>
         </div>
         <div class="changeRole  questionName">
-          <span class="title">政策内容：</span><span class='content'>{{sendInfo.content}}</span>
+          <span class="title">政策内容：</span>
+          <!-- <span class='content' v-html='sendInfo.content'></span> -->
+          <div class="edit_container">
+            <quill-editor 
+                class="editor"
+                v-model="sendInfo.content" 
+                ref="myQuillEditor" 
+                :options="editorOption2" 
+                @blur="onEditorBlur($event)" @focus="onEditorFocus2($event)"
+                @change="onEditorChange($event)">
+            </quill-editor>
+          </div>
         </div>
       </template>
     </DialogVue>
@@ -107,7 +141,12 @@
   import Util from "framework/util/util"
   import TableVue from 'framework/components/TableVue'
   import DialogVue from 'framework/components/dialogVue'
+  // import ue from 'framework/components/ue'
 
+  import { quillEditor } from "vue-quill-editor"; //调用编辑器
+  import 'quill/dist/quill.core.css';
+  import 'quill/dist/quill.snow.css';
+  import 'quill/dist/quill.bubble.css';
 
   export default {
     name: 'subsidizeManager',
@@ -125,12 +164,42 @@
           value: 'code',
           label:'name',
         },
-        // v1:["330000", "330300", "330304"]
+        editorOption2:{
+          enable:false,
+           modules:{
+              toolbar:[]
+           },
+           theme: 'snow'
+        },
+        editorOption: {
+          placeholder: "",
+          theme: "snow", // or 'bubble'
+          placeholder: "请输入内容",
+          modules:{
+              toolbar:[
+                  ["bold", "italic", "underline", "strike"], // 加粗 斜体 下划线 删除线
+                  ["blockquote", "code-block"], // 引用  代码块
+                  [{ header: 1 }, { header: 2 }], // 1、2 级标题
+                  [{ list: "ordered" }, { list: "bullet" }], // 有序、无序列表
+                  [{ script: "sub" }, { script: "super" }], // 上标/下标
+                  [{ indent: "-1" }, { indent: "+1" }], // 缩进
+                  // [{'direction': 'rtl'}],                         // 文本方向
+                  [{ size: ["small", false, "large", "huge"] }], // 字体大小
+                  [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+                  [{ color: [] }, { background: [] }], // 字体颜色、字体背景颜色
+                  [{ font: [] }], // 字体种类
+                  [{ align: [] }], // 对齐方式
+                  ["clean"], // 清除文本格式
+                  ["link"] // 链接、图片、视频
+              ]
+          }
+        }
       }
     },
     components: {
       TableVue,
       DialogVue,
+      quillEditor,
     },
     computed: {
       ...mapGetters({
@@ -140,6 +209,9 @@
         addObj: "addObj",
         sendInfo: "sendInfo",
       }),
+      editor() {
+          return this.$refs.myQuillEditor.quill;
+      },
     },
     methods:{
       searchTable(){
@@ -163,14 +235,24 @@
           console.log('initArea',res)
           this.areas = res.success? res.data:[];
         })
-      }
+      },
+      onEditorReady(editor) { // 准备编辑器
+ 
+      },
+      onEditorBlur(){}, // 失去焦点事件
+      onEditorFocus(){}, // 获得焦点事件
+      onEditorFocus2(editor){
+        console.log('edit',editor)
+        editor.enable(false); 
+      }, // 获得焦点事件
+      onEditorChange(){}, // 内容改变事件
     },
     beforeCreate(){
       this.$store.dispatch("reSetSate","subsidizeManager");
       Util.setItem("currentVue",{vue:"subsidizeManager"});
     },
     mounted(){
-      // console.log('sendInfo',this.sendInfo)
+      // console.log('addObj',this.addObj)
       this.initArea();
     }
   }
@@ -178,6 +260,7 @@
 
 <style lang="scss" >
   @import "static/scss/container";
+  @import "./edit.scss";
   .container{
     .title{
       border-left:4px solid rgba(74,144,226,1);

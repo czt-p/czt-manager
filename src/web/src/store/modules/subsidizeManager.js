@@ -66,19 +66,19 @@ const state = {
     add:{
       title:"新增政策",
       visible:false,
-      width:"654px",
+      width:"754px",
       template:"addRole"
     },
     change:{
       title: "政策修改",
       visible:false,
-      width:"654px",
+      width:"754px",
       template:"changeRole"
     },
     view:{
       title: "政策查看",
       visible:false,
-      width:"654px",
+      width:"754px",
       template:"viewRole"
     }
   },
@@ -102,7 +102,7 @@ const state = {
   addObj: {
     area: [],
     name: '',
-    content: '',
+    content: 'test',
   },
 }
 

@@ -5,6 +5,7 @@
     :visible.sync="currentDialog.visible"
     :width="currentDialog.width"
     :modal-append-to-body="true"
+    :close-on-click-modal='false'
     :append-to-body="true"
     @open='open'
     :before-close="handleClose">
