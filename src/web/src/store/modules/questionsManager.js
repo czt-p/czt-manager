@@ -26,8 +26,8 @@ const state = {
       caption:"caption",
       th: [
         {property: "question", label: "问题名称"},
-        {property: "answer", label: "解答"},
-        {property: "updatedTime", label: "更新时间",type:'time'},
+        {property: "answer", label: "解答",type:'html',width:'300px'},
+        {property: "updatedTime", label: "更新时间",type:'time',width:'250px'},
       ],
       deals: {
         max:4
@@ -70,19 +70,19 @@ const state = {
     add:{
       title:"新增问答",
       visible:false,
-      width:"654px",
+      width: "75%",
       template:"addRole"
     },
     change:{
       title: "问答修改",
       visible:false,
-      width:"654px",
+      width: "75%",
       template:"changeRole"
     },
     view:{
       title: "问答查看",
       visible:false,
-      width:"654px",
+      width: "75%",
       template:"viewRole"
     }
   },

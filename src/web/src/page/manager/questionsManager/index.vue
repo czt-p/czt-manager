@@ -35,7 +35,17 @@
           问答名称：<el-input size='small' v-model="addObj.question" placeholder="请输入问答名称"></el-input>
         </div>
         <div class="addRole questionName">
-          问题解答：<el-input size='small' v-model="addObj.answer" placeholder="请输入答案"></el-input>
+          问题解答：
+          <!-- <el-input size='small' v-model="addObj.answer" placeholder="请输入答案"></el-input> -->
+          <div class="edit_container">
+            <quill-editor 
+                class="editor"
+                v-model="addObj.answer" 
+                ref="myQuillEditor" 
+                :options="editorOption" 
+                >
+            </quill-editor>
+          </div>
         </div>
       </template>
       <template slot="changeRole">
@@ -43,7 +53,17 @@
           问答名称：<el-input size='small' v-model="sendInfo.question" placeholder="请输入问答名称"></el-input>
         </div>
         <div class="changeRole questionName">
-          问题解答：<el-input size='small' v-model="sendInfo.answer" placeholder="请输入答案"></el-input>
+          问题解答：
+          <!-- <el-input size='small' v-model="sendInfo.answer" placeholder="请输入答案"></el-input> -->
+          <div class="edit_container">
+            <quill-editor 
+                class="editor"
+                v-model="sendInfo.answer" 
+                ref="myQuillEditor" 
+                :options="editorOption" 
+                >
+            </quill-editor>
+          </div>
         </div>
       </template>
       <template slot="viewRole">
@@ -51,7 +71,18 @@
           问答名称：<span>{{sendInfo.question}}</span>
         </div>
         <div class="changeRole questionName">
-          问题解答：<span>{{sendInfo.answer}}</span>
+          问题解答：
+          <!-- <span>{{sendInfo.answer}}</span> -->
+          <div class="edit_container">
+            <quill-editor 
+                class="editor"
+                v-model="sendInfo.answer" 
+                ref="myQuillEditor" 
+                :options="editorOption2" 
+                @focus="onEditorFocus($event)"
+                >
+            </quill-editor>
+          </div>
         </div>
       </template>
     </DialogVue>
@@ -65,7 +96,10 @@
   import Util from "framework/util/util"
   import TableVue from 'framework/components/TableVue'
   import DialogVue from 'framework/components/dialogVue'
-  
+  import { quillEditor } from "vue-quill-editor"; //调用编辑器
+  import 'quill/dist/quill.core.css';
+  import 'quill/dist/quill.snow.css';
+  import 'quill/dist/quill.bubble.css';
 
   export default {
     name: 'questionsManager',
@@ -77,12 +111,45 @@
           askName:'',
           answers:'',
         },
-        value11:""
+        value11:"",
+        editorOption: {
+          placeholder: "",
+          theme: "snow", // or 'bubble'
+          placeholder: "请输入内容",
+          modules:{
+              toolbar:[
+                  ["bold", "italic", "underline", "strike"], // 加粗 斜体 下划线 删除线
+                  ["blockquote", "code-block"], // 引用  代码块
+                  [{ header: 1 }, { header: 2 }], // 1、2 级标题
+                  [{ list: "ordered" }, { list: "bullet" }], // 有序、无序列表
+                  [{ script: "sub" }, { script: "super" }], // 上标/下标
+                  [{ indent: "-1" }, { indent: "+1" }], // 缩进
+                  // [{'direction': 'rtl'}],                         // 文本方向
+                  [{ size: ["small", false, "large", "huge"] }], // 字体大小
+                  [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+                  [{ color: [] }, { background: [] }], // 字体颜色、字体背景颜色
+                  [{ font: [] }], // 字体种类
+                  [{ align: [] }], // 对齐方式
+                  ["clean"], // 清除文本格式
+                  ["link"] // 链接、图片、视频
+              ]
+          }
+        },
+        editorOption2: {
+          placeholder: "",
+          theme: "snow", // or 'bubble'
+          placeholder: "请输入内容",
+          modules:{
+              toolbar:[
+              ]
+          }
+        }
       }
     },
     components: {
       TableVue,
       DialogVue,
+      quillEditor,
     },
     computed: {
       ...mapGetters({
@@ -106,6 +173,10 @@
       handleAdd(){
         this.$store.dispatch(this.currentTable+'/openDialog',"add");
       },
+      onEditorFocus(editor){
+        // console.log('edit',editor)
+        editor.enable(false); 
+      }, 
     },
     beforeCreate(){
       this.$store.dispatch("reSetSate","questionsManager");

@@ -63,7 +63,8 @@ export default {
         }),
     },
     mounted(){
-        // console.log('content',this.content)
+        console.log('content')
+        console.log('content',this.$parent)
     }
 }
 </script>

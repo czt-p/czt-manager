@@ -2,15 +2,15 @@ import * as types from '../mutation-types'
 import Util from 'framework/util/util'
 import XHR from 'framework/xhr/xhr'
 import { MessageBox } from 'element-ui';
-import SubsidizeList from "src/collection/subsidize"
+import costingsList from "src/collection/costing"
 
 const state = {
-  name: "subsidizeListManager",
+  name: "costingManager",
   param: {
-    modifyTime: "", //{"question":"title","answer":"test","startDate":1545713393497,"endDate":1545713393497}
-    regionCode:"",
-    name:'',
-    query: ["modifyTime", "regionCode", "name"],
+    accountTime: "",
+    companyName: "",
+    telephone: "",
+    query: ["accountTime", "companyName", "telephone"],
     page: {
       pageIndex: "1",
       limit: 20,
@@ -24,12 +24,17 @@ const state = {
       highlight: true,
       caption:"caption",
       th: [
-        {property: "regionArea", label: "政策所属地区"},
-        {property: "name", label: "政策名称",width:'400px'},
-        {property: "modifyTime", label: "更新时间"},
+        {property: "companyName", label: "公司名称"},
+        {property: "consultCost", label: "咨询费用（元）"},
+        {property: "ipCost", label: "知识产权（元）"},
+        {property: "annualAuditCost", label: "年度审计报告（元）"},
+        {property: "specialAuditCost", label: "高薪专项审计（元）"},
+        {property: "totalCost", label: "总费用（元）"},
+        {property: "telephone", label: "联系方式"},
+        {property: "accountTime", label: "时间"},
       ],
       deals: {
-        max:4
+        max:2
       },
     }
   },
@@ -38,13 +43,9 @@ const state = {
   },
   tableData: [],
   currentDialog:{},
-  
   url: {
-    del: "deleteSubside",
-    change: "changeRole",
-    subsidyPolicies: "subsidyPolicies",
-    changeSubside: "changeSubside",
-    add: "subsidyPolicies",
+    accountRecords: "accountRecords",
+    costDetail: "costDetail", ///accountRecords/{id}根据id查询单个评测记录
   },
   actions:{
     param: "PARAM_CHANGE",
@@ -63,22 +64,10 @@ const state = {
       visible:false,
       template:""
     },
-    add:{
-      title:"新增政策",
-      visible:false,
-      width: "75%",
-      template:"addRole"
-    },
-    change:{
-      title: "政策修改",
-      visible:false,
-      width: "75%",
-      template:"changeRole"
-    },
     view:{
-      title: "政策查看",
+      title: "查看核算记录详情",
       visible:false,
-      width:"75%",
+      width:"80%",
       template:"viewRole"
     }
   },
@@ -99,34 +88,33 @@ const state = {
   },
   result: {},
   flag: {},
-  addObj: {
-    area: [],
-    name: '',
-    content: 'test',
-  },
+  addObj:{
+    question: '',
+    answer: '',
+  },//新增问题
+  costDetail:''//核算详情
 }
 
 // getters 对数据进行格式化
 const getters = {
-  addObj:(state)=>state.addObj,
+  costDetail: (state) => state.costDetail,
   tableData:(state) =>state.tableData,
-  // id: state =>state.roleId,
+  id: state =>state.roleId,
   currentDialog:(state)=>state.currentDialog,
   sendInfo: state => state.sendInfo,
   result: state =>state.result,
 }
-
 function resetParam(params) {
-  let resultParam = {...params.page, queryString: []};
+  let resultParam = { ...params.page,
+    queryString: []
+  };
   if (params.query && params.query.length > 0) {
     params.query.map((param) => { //name,role
       if (params[param] && params[param] !== "") {
-        if (param == 'modifyTime'){
+        if (param == 'accountTime') {
           resultParam.queryString.push(param + "~GE~" + params[param][0])
           resultParam.queryString.push(param + "~LE~" + params[param][1])
-        } else if (param == 'regionCode' && params['regionCode'] && params['regionCode'].length > 0) {
-          resultParam.queryString.push(param + "~like~%" + params[param][params[param].length - 1] + "%")
-        }else{
+        }else {
           resultParam.queryString.push(param + "~like~%" + params[param] + "%")
         }
       }
@@ -140,16 +128,17 @@ const actions = {
     let param = resetParam(Object.assign({}, state.param));
     // console.log('param',param)
     XHR.ajaxGetForArray({
-      url: state.url.subsidyPolicies,
+      url: state.url.accountRecords, ///accountRecords批量查询评测记录操作， 支持分页查询
       data: param
     }, function (data) {
       let parse = {
-        type: state.url.subsidyPolicies,
+        type: state.url.accountRecords,
         data: data
       };
       data.success ? commit(types[state.actions.items], parse) : commit(types.ERROR, parse);
     })
   },
+  
   pageChange({dispatch,commit,state},pageIndex){
     commit(types[state.actions.param],{page:{pageIndex:pageIndex,limit:20,orderBy:''}});
     dispatch("getItems");
@@ -159,72 +148,19 @@ const actions = {
     // console.log('paramChange',param)
     dispatch("getItems");
   },
-  //新增
-  addItem({commit, state}){
-    if (state.addObj.area.length > 0 && state.addObj.name && state.addObj.name.trim() && state.addObj.content && state.addObj.content.trim()) {
-      let sendData = {
-        regionCode: state.addObj.area[state.addObj.area.length - 1],
-        name: state.addObj.name,
-        content: state.addObj.content,
-      }
-      XHR.post({
-        url:state.url.add,
-        data: sendData,
-      },function(data){
-        data.success ? commit(types.SUCCESS,{type:"add",data:data}):commit(types.ERROR,{type:"add",data:data})
-      })
-    }else{
-      if (state.addObj.area.length<1) {
-        MessageBox({
-          title:'提示',
-          message: '政策所属地区不能为空',
-          type: 'warning'
-        })
-      } else if (!state.addObj.name) {
-        MessageBox({
-          title: '提示',
-          message: '政策名称不能为空',
-          type: 'warning'
-        })
-      }else if (!state.addObj.content) {
-        MessageBox({
-          title: '提示',
-          message: '政策内容不能为空',
-          type: 'warning'
-        })
-      }
-    }
-  },
-  changeItem({commit, state}){
-    // console.log(state.sendInfo);
-    XHR.restfulMiddle({
-      url: state.url.changeSubside,
-      method: "PUT",
-      think: {id: state.sendInfo.id},
-      data:{regionCode:state.sendInfo.area[state.sendInfo.area.length-1],name:state.sendInfo.name,content:state.sendInfo.content},
-    }, function (data) {
-      data.success ? commit(types.SUCCESS, {type:"change",data:data}) : commit(types.ERROR, {type:"change",data:data});
-    })
-  },
-  deleteItem({commit, state}, data) {
-    // console.log('deleteItem',data)
-    XHR.restfulMiddle({
-      url: state.url.del,
-      method: "DELETE",
-      think: {id: data[0]},
-    }, function (data) {
-      let parse = {
-        type: "delete",
-        data: data
-      };
-      data.success ? commit(types.SUCCESS, parse) : commit(types.ERROR, parse);
-    })
-  },
   openDialog({state,commit},type){
     commit(types[state.actions.add]);
   },
   openViewDialog({state,commit},data){
     commit(types[state.actions.current], data);
+    XHR.restfulMiddle({
+      url: state.url.costDetail,
+      method: "GET",
+      think: {id: data.id},
+    }, function (data) {
+      console.log('data',data)
+      state.costDetail = data.data;
+    })
     commit(types[state.actions.view],data);
   },
   //弹出窗口
@@ -255,7 +191,7 @@ const mutations = {
   //查
   [types[state.actions.items]](state, data) {
     let result = data.data.data.content;
-    let List = new SubsidizeList(result);
+    let List = new costingsList(result);
     // console.log('types', List)
     state.tableData = List.getModels();
     if (data.data.data.pageIndex) {
@@ -271,34 +207,17 @@ const mutations = {
   //修改参数
   [types[state.actions.param]](state, param) {
     state.param = Object.assign({}, state.param, param);
-    // console.log('state.param', state.param )
-  },
-  //改
-  [types[state.actions.change]](state) {
-    state.currentDialog= Object.assign({},state.dialog.change,{visible:true});
   },
   [types[state.actions.view]](state) {
     state.currentDialog= Object.assign({},state.dialog.view,{visible:true});
-  },
-  //增
-  [types[state.actions.add]](state) {
-    state.currentDialog= Object.assign({},state.dialog.add,{visible:true});
   },
   [types[state.actions.close]](state){
     state.currentDialog = Object.assign({},state.currentDialog,state.dialog._default);
     state.sendInfo = Object.assign({},state.sendInfo,state._default);
   },
   [types[state.actions.current]](state,data){
-    let temp = Object.assign({},state.sendInfo,data);
-    // temp.region = temp.region.parent?[temp.region.parent.substring(0,2)+'0000',temp.region.code]
-    if (temp.region.parent){
-      if(temp.region.code.startsWith('11') || temp.region.code.startsWith('12') || temp.region.code.startsWith('31') || temp.region.code.startsWith('50')){
-        temp.area = [temp.region.parent, temp.region.code];//四个直辖市
-      }else{
-        temp.area = [temp.region.parent.substring(0, 2) + '0000', temp.region.parent, temp.region.code];
-      }
-    }
-    state.sendInfo = temp;
+    state.sendInfo = Object.assign({},state.sendInfo,data)
+    // state.currentRole = data;
   },
   //回调
   [types.SUCCESS](state, data) {
@@ -316,4 +235,3 @@ export default {
   actions,
   mutations
 }
-

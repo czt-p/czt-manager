@@ -9,6 +9,7 @@ import roleManager from './modules/roleManager'
 import questionsManager from './modules/questionsManager'
 import subsidizeManager from './modules/subsidizeManager'
 import evaluatManager from './modules/evaluatManager'
+import costingManager from './modules/costingManager'
 
 Vue.use(Vuex)
 
@@ -43,5 +44,6 @@ export default new Vuex.Store({
     questionsManager,
     subsidizeManager,
     evaluatManager,
+    costingManager,
   }
 })

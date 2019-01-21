@@ -21,9 +21,12 @@
         <el-table-column v-for="(item,index) in options.th"
                          :property="item.property"
                          :min-width='item.width'
-                         :label="item.label" :key='index'>
+                         :label="item.label" :key='index'
+                         style='height:40px;overflow:hidden;'>
           <template slot-scope="scope">
             <label v-if='item.type=="time"'>{{new Date(scope.row[item.property]-0).Format('yyyy-MM-dd hh:mm:ss')}}</label>
+            <!-- <label v-if='item.type=="html"' v-html='scope.row[item.property]' >{{scope.row[item.property]}}</label> -->
+            <label v-if='item.type=="html"'>{{scope.row[item.property].replace(reg,'')}}</label>
             <label v-else>{{scope.row[item.property]}}</label>
           </template>
         </el-table-column>
@@ -67,7 +70,8 @@
   export default {
     data() {
       return {
-        currentRow: 0
+        currentRow: 0,
+        reg:/<\/?.+?\/?>/g
       }
     },
     computed: {

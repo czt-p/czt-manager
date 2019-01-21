@@ -53,11 +53,19 @@
         });
       },
       open(){
-        // console.log('jjjjjjjjjjjjjjjjjjjjjjjjjjjjj==========')
+        if(this.currentDialog.title === '查看核算记录详情'){
+          console.log('sss',document.querySelector('.el-dialog__title'))
+          let spanTitle = document.querySelector('.el-dialog__title');
+          spanTitle?spanTitle.className = '.el-dialog__title costingView':'';
+        }
         for (const key in this.addObj) {
           this.addObj[key] = this.addObj[key] instanceof Array?[]:'';
         }
+        
       }
+    },
+    mounted(){
+    
     }
   };
 </script>
@@ -87,5 +95,42 @@
         }
       }
     }
+  }
+  .part{
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(204,204,204,1);
+    .title{
+      padding: 15px 0px;
+      font-size:18px;
+      font-family:SourceHanSansCN-Medium;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+      line-height:27px;
+    }
+    .pContent{
+      padding-left: 25px;
+      .viewRole{
+        padding:5px;
+        .lC{
+          display: inline-block;
+          width: 360px;
+        }
+        .mC{
+          display: inline-block;
+          width: 200px;
+        }
+      }
+    }
+  }
+  .part:nth-last-child(1){
+    border-bottom:none;
+  }
+  .costingView{
+    border-left:4px solid rgba(74,144,226,1);
+    padding-left:10px;
+    font-size:18px;
+    font-family:SourceHanSansCN-Medium;
+    font-weight:500;
+    color:rgba(51,51,51,1);
   }
 </style>

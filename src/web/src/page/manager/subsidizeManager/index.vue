@@ -141,8 +141,6 @@
   import Util from "framework/util/util"
   import TableVue from 'framework/components/TableVue'
   import DialogVue from 'framework/components/dialogVue'
-  // import ue from 'framework/components/ue'
-
   import { quillEditor } from "vue-quill-editor"; //调用编辑器
   import 'quill/dist/quill.core.css';
   import 'quill/dist/quill.snow.css';
@@ -242,7 +240,7 @@
       onEditorBlur(){}, // 失去焦点事件
       onEditorFocus(){}, // 获得焦点事件
       onEditorFocus2(editor){
-        console.log('edit',editor)
+        // console.log('edit',editor)
         editor.enable(false); 
       }, // 获得焦点事件
       onEditorChange(){}, // 内容改变事件
