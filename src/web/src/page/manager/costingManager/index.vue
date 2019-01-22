@@ -108,12 +108,12 @@
           <div class='title'>知识产权费用</div>
           <div class="pContent">
             <div class="viewRole">
-              <span class='lC'>费用合计：{{costDetail.details.ipCost.totalCost}}元</span>
+              <span class='lC'>费用合计：{{costDetail.details.ipCost?costDetail.details.ipCost.totalCost:0}}元</span>
             </div>
             <div class="viewRole">
-              <span class='lC'>知识产权费用需要测算：{{costDetail.details.ipCost.costList.length>0?'是':'否'}}</span>
+              <span class='lC'>知识产权费用需要测算：{{costDetail.details.ipCost && costDetail.details.ipCost.costList.length>0?'是':'否'}}</span>
             </div>
-            <template v-if='costDetail.details.ipCost.costList.length>0'>
+            <template v-if='costDetail.details.ipCost && costDetail.details.ipCost.costList.length>0'>
               <div class="viewRole"  v-for='(x,i) in costDetail.details.ipCost.costList' :key='i'>
                 <span class='lC'>知识产权类型：{{x.type}}</span>
                 <span class='mC'>知识产权数量：{{x.quantity}}个</span>
@@ -126,15 +126,15 @@
           <div class='title'>年度审计报告费用</div>
           <div class="pContent">
             <div class="viewRole">
-              <span class='lC'>费用合计：{{costDetail.details.annualAuditCost.totalCost}}元</span>
+              <span class='lC'>费用合计：{{costDetail.details.annualAuditCost ?costDetail.details.annualAuditCost.totalCost:0}}元</span>
+            </div>
+            <div class="viewRole" v-if='costDetail.details.annualAuditCost'>
+              <span class='lC' >预计申请年度：{{costDetail.details.annualAuditCost.applyYear}}年</span>
             </div>
             <div class="viewRole">
-              <span class='lC'>预计申请年度：{{costDetail.details.annualAuditCost.applyYear}}年</span>
+              <span class='lC'>年度审计报告费用需要测算：{{costDetail.details.annualAuditCost && costDetail.details.annualAuditCost.costList.length>0?'是':'否'}}</span>
             </div>
-            <div class="viewRole">
-              <span class='lC'>年度审计报告费用需要测算：{{costDetail.details.annualAuditCost.costList.length>0?'是':'否'}}</span>
-            </div>
-            <template v-if='costDetail.details.annualAuditCost.costList.length>0'>
+            <template v-if='costDetail.details.annualAuditCost && costDetail.details.annualAuditCost.costList.length>0'>
               <div class="viewRole" v-for='(x,i) in costDetail.details.annualAuditCost.costList'  :key='i' style='padding-left: 40px;'>
                 <span class='mC'>{{x.year}}年</span>
                 <span class='mC'>资产总额：{{x.amount}}万元</span>
@@ -147,12 +147,12 @@
           <div class='title'>其他费用</div>
           <div class="pContent">
             <div class="viewRole">
-              <span class='lC'>费用合计：{{costDetail.details.otherCost.totalCost}}元</span>
+              <span class='lC'>费用合计：{{costDetail.details.otherCost?costDetail.details.otherCost.totalCost:0}}元</span>
             </div>
             <div class="viewRole">
-              <span class='lC'>其他费用需要测算：{{costDetail.details.otherCost.costList.length>0?'是':'否'}}</span>
+              <span class='lC'>其他费用需要测算：{{costDetail.details.otherCost && costDetail.details.otherCost.costList.length>0?'是':'否'}}</span>
             </div>
-            <template v-if='costDetail.details.otherCost.costList.length>0'>
+            <template v-if='costDetail.details.otherCost && costDetail.details.otherCost.costList.length>0'>
               <div class="viewRole" v-for='(x,i) in costDetail.details.otherCost.costList'  :key='i'>
                 <span class='lC'>费用类型：{{x.type}}</span>
                 <span class='mC'>所需数量：{{x.quantity}}个</span>

@@ -29,6 +29,7 @@ const state = {
         {property: "ipCost", label: "知识产权（元）"},
         {property: "annualAuditCost", label: "年度审计报告（元）"},
         {property: "specialAuditCost", label: "高薪专项审计（元）"},
+        {property: "otherCost", label: "其他费用（元）"},
         {property: "totalCost", label: "总费用（元）"},
         {property: "telephone", label: "联系方式"},
         {property: "accountTime", label: "时间"},
