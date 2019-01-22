@@ -13,9 +13,11 @@ INSERT INTO t_user(id,account,name,password,status) VALUES(1,'root','超级管�
 INSERT INTO r_user_role(user_id,role_id) VALUES(1,0)
 
 -- 添加权限部分的菜单项
-INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (1, '系统管理', 'Hui-iconfont-system', null, '900', 'N')
-INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (2, '账号管理', null, 'manager/userManager', '900100', 'N')
-INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (3, '角色管理', null, 'manager/roleManager', '900200', 'N')
+INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (1, '系统管理', 'Hui-iconfont-system', null, '100', 'N')
+INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (2, '账号管理', null, 'manager/userManager', '100100', 'N')
+INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (3, '角色管理', null, 'manager/roleManager', '100200', 'N')
 -- INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (4, '系统日志', null, 'manager/logManager', '900400', 'N')
-INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (5, '问答管理', null, 'manager/questionsManager', '100', 'N')
-INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (6, '政策管理', null, 'manager/subsidizeManager', '200', 'N')
+INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (4, '评测管理', null, 'manager/evaluatManager', '200', 'N')
+INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (5, '成本核算', null, 'manager/costingManager', '300', 'N')
+INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (6, '政策管理', null, 'manager/subsidizeManager', '400', 'N')
+INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (7, '问答管理', null, 'manager/questionsManager', '500', 'N')
