@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="title">资助管理</div>
+    <div class="title">政策管理</div>
     <div class="searchArea">
       <div class="searchInput">
         <div class="searchTime">
