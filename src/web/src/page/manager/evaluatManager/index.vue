@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="title">评测管理</div>
+    <div class="title">政策管理</div>
     <div class="searchArea">
       <div class="searchInput">
         <div class="searchTime">
@@ -172,6 +172,7 @@
     }
     .el-card{
       height: calc(100% - 90px);
+      // overflow: auto!important;
     }
   }
 .el-dialog{

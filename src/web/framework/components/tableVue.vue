@@ -20,7 +20,7 @@
         </el-table-column>
         <el-table-column v-for="(item,index) in options.th"
                          :property="item.property"
-                         :min-width='item.width'
+                         :width='item.width'
                          :label="item.label" :key='index'
                          style='height:40px;overflow:hidden;'>
           <template slot-scope="scope">

@@ -46,6 +46,7 @@
              v-model="addObj.area"
              change-on-select
              clearable
+             @visible-change='valideRegion'
              @change="handleChange"
             :props="props">
           </el-cascader>
@@ -145,7 +146,7 @@
   import 'quill/dist/quill.core.css';
   import 'quill/dist/quill.snow.css';
   import 'quill/dist/quill.bubble.css';
-
+  import { MessageBox } from 'element-ui';
   export default {
     name: 'subsidizeManager',
     data(){
@@ -212,6 +213,29 @@
       },
     },
     methods:{
+      valideRegion(val){
+        console.log('val',val,this.addObj.area)
+        if(!val && this.addObj.area.length>0){
+          let sendData = {
+            queryString:[
+              "regionCode~like~%"+this.addObj.area[this.addObj.area.length-1]+ "%",
+            ]
+              
+          }
+          // console.log('param',param)
+          XHR.ajaxGetForArray({
+            url: 'subsidyPolicies',
+            data: sendData
+          }, function (data) {
+            
+            console.log('valideRegion',data.data.content)
+            if (data.data.content.length>0) {
+              MessageBox.alert('此地区已存在资助政策，不可重复添加！')
+              // commit([types.SUCCESS],{type:'change',dat:{msg:''}})
+            }
+          })
+        }
+      },
       searchTable(){
         let param = {
           modifyTime: this.searchObj.searchTime, //{"question":"title","answer":"test","startDate":1545713393497,"endDate":1545713393497}
@@ -287,7 +311,7 @@
             width: auto!important;
           }
           .el-cascader{
-            line-height:0!important;
+            // line-height:0!important;
             .el-input__prefix, .el-input__suffix{
               top:-3px;
             }
@@ -307,6 +331,22 @@
           height:32px;
           line-height: 32px!important;
         }
+        input{
+          width:160px;
+        }
+    }
+    .questionName{
+      input{
+          width:160px;
+        }
+    }
+    .el-date-editor{
+      input{
+        width:120px;
+      }
+    }
+    .el-date-editor--datetimerange.el-input__inner {
+        width: 360px;
     }
     .el-card{
       height: calc(100% - 90px);

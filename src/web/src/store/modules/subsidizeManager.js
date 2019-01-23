@@ -148,6 +148,11 @@ const actions = {
         data: data
       };
       data.success ? commit(types[state.actions.items], parse) : commit(types.ERROR, parse);
+      // console.log('getItems',data.data.content)
+      // if (valide && data.data.content.length>0) {
+      //   alert('此地区已存在资助政策，不可重复添加！')
+      //   commit([types.SUCCESS],{type:'change',dat:{msg:''}})
+      // }
     })
   },
   pageChange({dispatch,commit,state},pageIndex){

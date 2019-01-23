@@ -28,6 +28,7 @@ class Questions {
       switch (key) {
         case"createTime":
         case"modifyTime":
+        case "updatedTime":
           if (this.defaultData[key] && this.defaultData[key] !== "") {
             this.model[key] = new Date(this.defaultData[key]).Format("yyyy-MM-dd");
           } else {

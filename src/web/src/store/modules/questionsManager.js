@@ -25,9 +25,9 @@ const state = {
       highlight: true,
       caption:"caption",
       th: [
-        {property: "question", label: "问题名称"},
-        {property: "answer", label: "解答",type:'html',width:'300px'},
-        {property: "updatedTime", label: "更新时间",type:'time',width:'250px'},
+        {property: "question", label: "问题名称",width:'400px'},
+        {property: "answer", label: "解答",type:'html'},
+        {property: "updatedTime", label: "更新时间",width:'250px'},
       ],
       deals: {
         max:4
