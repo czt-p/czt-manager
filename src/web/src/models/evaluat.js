@@ -28,8 +28,9 @@ class Evaluat {
       switch (key) {
         case"createTime":
         case"modifyTime":
+        case "examTime":
           if (this.defaultData[key] && this.defaultData[key] !== "") {
-            this.model[key] = new Date(this.defaultData[key]).Format("yyyy-MM-dd");
+            this.model[key] = new Date(this.defaultData[key]).Format("yyyy-MM-dd hh:mm:ss");
           } else {
             this.model[key] = "";
           }

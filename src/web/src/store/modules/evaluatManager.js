@@ -27,7 +27,7 @@ const state = {
         {property: "companyName", label: "公司名称"},
         {property: "score", label: "评分分数"},
         {property: "telephone", label: "手机号码"},
-        {property: "examTime", label: "评分时间",type:'time'},
+        {property: "examTime", label: "评分时间"},
       ],
       deals: {
         max:3
