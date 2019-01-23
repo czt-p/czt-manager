@@ -175,7 +175,7 @@
       // overflow: auto!important;
     }
   }
-.el-dialog{
+  .el-dialog{
     background:#f7f7f7!important;
     .topDetail,.contentDetail{
         background: rgba(255,255,255,1);
