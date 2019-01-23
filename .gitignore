@@ -1,8 +1,8 @@
 /target/
 /.idea/
-*.iml
-*.ipr
-*.iws
+/czt-manager.iml
+/czt-manager.ipr
+/czt-manager.iws
 /.ideaDataSources/
 /data/
 /node_modules/
