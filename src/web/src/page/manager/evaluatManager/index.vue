@@ -44,15 +44,15 @@
                         <div class="questionsList" v-for='(item,index) in detailEvaluat.details[0].questions' :key='index' >
                             <div>{{`${index+1}、${item.content}`}}</div>
                             <el-radio-group v-model="item.answer">
-                                <el-radio :label="x.id" v-for='(x,index) in item.options' :key='index' :class="[item.options.length>2?'moreOptions':'']">{{x.content}}</el-radio>
+                                <el-radio disabled :label="x.id" v-for='(x,index) in item.options' :key='index' :class="[item.options.length>2 && x.content.length>30?'moreOptions':'']">{{x.content}}</el-radio>
                             </el-radio-group>
                         </div>
                     </el-tab-pane >
                     <el-tab-pane label="高新评分" name="second" v-if='detailEvaluat && detailEvaluat.details[1]'>
                          <div class="questionsList" v-for='(item,index) in detailEvaluat.details[1].questions' :key='index' >
-                            <div>{{`${index}、${item.content}`}}</div>
+                            <div>{{`${index+1}、${item.content}`}}</div>
                             <el-radio-group v-model="item.answer">
-                                <el-radio :label="x.id" v-for='(x,index) in item.options' :key='index'>{{x.content}}</el-radio>
+                                <el-radio disabled :label="x.id" v-for='(x,index) in item.options' :key='index' :class="[item.options.length>2 && x.content.length>30?'moreOptions':'']">{{x.content}}</el-radio>
                             </el-radio-group>
                         </div>
                     </el-tab-pane>
@@ -196,8 +196,8 @@
     .contentDetail{
         .el-radio-group{
             padding-left:23px;
-            .el-radio:nth-child(1){
-                padding-right:30px!important;
+            .el-radio{
+                margin-right:40px!important;
             }
             .moreOptions{
                 display: block;
@@ -208,5 +208,8 @@
             }
         }
     }
+}
+.el-radio__input.is-disabled+span.el-radio__label {
+    white-space: pre-wrap;
 }
 </style>

@@ -26,7 +26,9 @@
           <template slot-scope="scope">
             <label v-if='item.type=="time"'>{{new Date(scope.row[item.property]-0).Format('yyyy-MM-dd hh:mm:ss')}}</label>
             <!-- <label v-if='item.type=="html"' v-html='scope.row[item.property]' >{{scope.row[item.property]}}</label> -->
-            <label v-if='item.type=="html"'>{{scope.row[item.property].replace(reg,'')}}</label>
+            <label v-if='item.type=="html"'>
+              {{scope.row[item.property].replace(reg,'').substr(0,60).length==60?scope.row[item.property].replace(reg,'').substr(0,60)+'...':scope.row[item.property].replace(reg,'').substr(0,60)}}
+              </label>
             <label v-else>{{scope.row[item.property]}}</label>
           </template>
         </el-table-column>

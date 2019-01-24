@@ -9,7 +9,7 @@
             v-model="searchObj.searchTime"
             type="datetimerange"
             :editable='false'
-            size='small'
+            size='mini'
             value-format="timestamp"
             range-separator="至"
             start-placeholder="开始日期"

@@ -67,7 +67,7 @@ const state = {
     view:{
       title: "评测记录详情",
       visible:false,
-      width:"50%",
+      width:"80%",
       template:"viewRole"
     }
   },
