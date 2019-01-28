@@ -8,6 +8,7 @@
     :close-on-click-modal='false'
     :append-to-body="true"
     @open='open'
+    @opened='opened'
     :before-close="handleClose">
        <slot :name="currentDialog.template"></slot>
       <span slot="footer" v-if='currentDialog.template!="viewRole"'>
@@ -20,6 +21,7 @@
 <script>
   import { mapGetters, mapActions } from 'vuex'
   import Util from "framework/util/util"
+  import { addQuillTitle } from 'framework/util/quill-title.js'
   export default {
     data(){
       return{
@@ -53,6 +55,7 @@
         });
       },
       open(){
+        
         if(this.currentDialog.title === '查看核算记录详情'){
           console.log('sss',document.querySelector('.el-dialog__title'))
           let spanTitle = document.querySelector('.el-dialog__title');
@@ -62,6 +65,11 @@
           this.addObj[key] = this.addObj[key] instanceof Array?[]:'';
         }
         
+      },
+      opened(){
+        this.$nextTick(()=>{
+          addQuillTitle();
+        })
       }
     },
     mounted(){

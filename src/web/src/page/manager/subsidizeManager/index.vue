@@ -352,4 +352,7 @@
       height: calc(100% - 90px);
     }
   }
+  .ql-container{
+    min-height: 200px;
+  }
 </style>

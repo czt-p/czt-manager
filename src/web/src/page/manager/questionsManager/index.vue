@@ -97,6 +97,7 @@
   import TableVue from 'framework/components/TableVue'
   import DialogVue from 'framework/components/dialogVue'
   import { quillEditor } from "vue-quill-editor"; //调用编辑器
+  import { addQuillTitle } from 'framework/util/quill-title.js'
   import 'quill/dist/quill.core.css';
   import 'quill/dist/quill.snow.css';
   import 'quill/dist/quill.bubble.css';
@@ -184,6 +185,7 @@
     },
     mounted(){
       // console.log('sendInfo',this.sendInfo)
+      // addQuillTitle();
     }
   }
 </script>
@@ -230,5 +232,8 @@
     .el-card{
       height: calc(100% - 90px);
     }
+  }
+  .ql-container{
+    min-height: 200px;
   }
 </style>
