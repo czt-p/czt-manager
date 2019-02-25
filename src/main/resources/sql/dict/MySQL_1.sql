@@ -3509,3 +3509,5 @@ insert into t_region (code,name,full_name,parent) values ('659006', '铁门关�
 insert into t_region (code,name,full_name,parent) values ('710000', '台湾省', '台湾省', null);
 insert into t_region (code,name,full_name,parent) values ('810000', '香港特别行政区', '香港特别行政区', null);
 insert into t_region (code,name,full_name,parent) values ('820000', '澳门特别行政区', '澳门特别行政区', null);
+
+insert into t_region (code,name,full_name,parent) values ('330199', '下沙经济技术开发区', '浙江省杭州市下沙经济技术开发区', 330100);
