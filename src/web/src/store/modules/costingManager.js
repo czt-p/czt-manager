@@ -159,7 +159,7 @@ const actions = {
       method: "GET",
       think: {id: data.id},
     }, function (data) {
-      console.log('data',data)
+      // console.log('data',data)
       state.costDetail = data.data;
     })
     commit(types[state.actions.view],data);

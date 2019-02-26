@@ -100,7 +100,8 @@
               <span class='mC'>营业收入：{{x.incoming}}万元</span>
               <span class='lC' v-if='x.managerCost'>其中管理费用投入金额 {{x.managerCost}}万元</span>
               <span class='lC' v-else>其中研发费用投入金额 {{x.rdCost}}万元</span>
-              <span class='mC'>费用：{{x.cost}}元</span>
+              <span class='mC'>高新收入专审：{{x.incomingSa}}元</span>
+              <span class='mC'>研发费专审：{{x.rdSa}}元</span>
             </div>
           </div>
         </div>
