@@ -70,19 +70,19 @@
           <div class='title'>咨询费用</div>
           <div class="pContent">
             <div class="viewRole">
-              <span class='lC'>费用合计：{{costDetail.details.consultCost.totalCost}}元</span>
+              <span class='lC'>费用合计：{{costDetail.details.consultCost?costDetail.details.consultCost.totalCost:0}}元</span>
             </div>
             <div class="viewRole">
-              <span class='lC'>企业所属高新领域：{{costDetail.details.consultCost.highFieldCost.highField}}</span>
-              <span class='rC'>费用：{{costDetail.details.consultCost.highFieldCost.cost}}元</span>
+              <span class='lC'>企业所属高新领域：{{costDetail.details.consultCost?costDetail.details.consultCost.highFieldCost.highField:''}}</span>
+              <span class='rC'>费用：{{costDetail.details.consultCost?costDetail.details.consultCost.highFieldCost.cost:0}}元</span>
             </div>
             <div class="viewRole">
-              <span class='lC'>企业财务成长性情况：{{costDetail.details.consultCost.financialGrowthCost.financialGrowth}}</span>
-              <span class='rC'>费用：{{costDetail.details.consultCost.financialGrowthCost.cost}}元</span>
+              <span class='lC'>企业财务成长性情况：{{costDetail.details.consultCost?costDetail.details.consultCost.financialGrowthCost.financialGrowth:''}}</span>
+              <span class='rC'>费用：{{costDetail.details.consultCost?costDetail.details.consultCost.financialGrowthCost.cost:0}}元</span>
             </div>
             <div class="viewRole">
-              <span class='lC'>企业最近一年的营业收入：{{costDetail.details.consultCost.recentYearIncomingCost.recentYearIncoming}}</span>
-              <span class='rC'>费用：{{costDetail.details.consultCost.recentYearIncomingCost.cost}}元</span>
+              <span class='lC'>企业最近一年的营业收入：{{costDetail.details.consultCost?costDetail.details.consultCost.recentYearIncomingCost.recentYearIncoming:''}}</span>
+              <span class='rC'>费用：{{costDetail.details.consultCost?costDetail.details.consultCost.recentYearIncomingCost.cost:0}}元</span>
             </div>
           </div>
         </div>
@@ -90,18 +90,20 @@
           <div class='title'>专项审计报告费用</div>
           <div class="pContent">
             <div class="viewRole">
-              <span class='lC'>费用合计：{{costDetail.details.specialAuditCost.totalCost}}元</span>
+              <span class='lC'>费用合计：{{costDetail.details.specialAuditCost?costDetail.details.specialAuditCost.totalCost:0}}元</span>
             </div>
             <div class="viewRole">
-              <span class='lC'>预计申请年度：{{costDetail.details.specialAuditCost.applyYear}}年</span>
+              <span class='lC'>预计申请年度：{{costDetail.details.specialAuditCost?costDetail.details.specialAuditCost.applyYear+'年':''}}</span>
             </div>
-            <div class="viewRole" v-for='(x,i) in costDetail.details.specialAuditCost.costList' :key='i' style='padding-left: 40px;'>
-              <span class='mC'>{{x.year}}年</span>
-              <span class='mC'>营业收入：{{x.incoming}}万元</span>
-              <span class='lC' v-if='x.managerCost'>其中管理费用投入金额 {{x.managerCost}}万元</span>
-              <span class='lC' v-else>其中研发费用投入金额 {{x.rdCost}}万元</span>
-              <span class='mC'>高新收入专审：{{x.incomingSa}}元</span>
-              <span class='mC'>研发费专审：{{x.rdSa}}元</span>
+            <div v-if='costDetail.details.specialAuditCost' >
+              <div class="viewRole" v-for='(x,i) in costDetail.details.specialAuditCost.costList' :key='i' style='padding-left: 40px;'>
+                <span class='mC'>{{x.year}}年</span>
+                <span class='mC'>营业收入：{{x.incoming}}万元</span>
+                <span class='lC' v-if='x.managerCost'>其中管理费用投入金额 {{x.managerCost}}万元</span>
+                <span class='lC' v-else>其中研发费用投入金额 {{x.rdCost}}万元</span>
+                <span class='mC'>高新收入专审：{{x.incomingSa}}元</span>
+                <span class='mC'>研发费专审：{{x.rdSa}}元</span>
+              </div>
             </div>
           </div>
         </div>
