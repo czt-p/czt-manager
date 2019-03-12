@@ -2,9 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/main">
 <head>
   <title>通用模板</title>
-<link href="/static/webpack/css/manager/seoManager.css" rel="stylesheet"/></head>
 <link data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/resources/webpack/css/manager/seoManager.css}|"
-href="/static/webpack/css/manager/seoManager.css" rel="stylesheet" />
+ href="/static/webpack/css/manager/seoManager.css" rel="stylesheet" />
 <body layout:fragment="content">
 <div id="app"></div>
 
