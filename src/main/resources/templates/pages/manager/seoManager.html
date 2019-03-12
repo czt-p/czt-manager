@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/main">
+<head>
+  <title>通用模板</title>
+<link href="/static/webpack/css/manager/seoManager.css" rel="stylesheet"/></head>
+<link data-th-href="|${#httpServletRequest.getHeader('app_root')?:''}@{/resources/webpack/css/manager/seoManager.css}|"
+href="/static/webpack/css/manager/seoManager.css" rel="stylesheet" />
+<body layout:fragment="content">
+<div id="app"></div>
+
+<script type="text/javascript" src="/static/webpack/js/manifest.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/resources/webpack/js/manifest.js}|"></script>
+<script type="text/javascript" src="/static/webpack/js/vendor.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/resources/webpack/js/vendor.js}|"></script>
+<script type="text/javascript" src="/static/webpack/js/manager/seoManager.js" data-th-src="|${#httpServletRequest.getHeader('app_root')?:''}@{/resources/webpack/js/manager/seoManager.js}|"></script>
+</body>
+</html>

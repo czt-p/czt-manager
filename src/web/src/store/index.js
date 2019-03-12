@@ -10,6 +10,7 @@ import questionsManager from './modules/questionsManager'
 import subsidizeManager from './modules/subsidizeManager'
 import evaluatManager from './modules/evaluatManager'
 import costingManager from './modules/costingManager'
+import seoManager from './modules/seoManager'
 
 Vue.use(Vuex)
 
@@ -45,5 +46,6 @@ export default new Vuex.Store({
     subsidizeManager,
     evaluatManager,
     costingManager,
+    seoManager,
   }
 })

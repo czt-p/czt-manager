@@ -116,13 +116,16 @@ export default class XHR {
     }
     static form(obj,callBack){
         $.ajax({
-            url:XHR.decodeURL(url),
+            type: "json",
+            url:XHR.decodeURL(obj.url),
             method:obj.method,
-            data:obj.data,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
+            data: JSON.stringify(obj.data),
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            // async: false,
+            // cache: false,
+            // contentType: false,
+            // processData: false,
             complete: function (xhr) {
               XHR.complete(xhr, callBack);
             }
@@ -158,29 +161,29 @@ export default class XHR {
         })
     }
     static restfulMiddle(param,callBack){
-    let url = XHR.decodeURL(param.url),think=param.think;
-        let regUrl = url.replace("{id}",think.id);
-        // console.log('regUrl',regUrl)
-        if(param.method === "GET"||param.method === "DELETE"){
-          $.ajax({
-            url:regUrl,
-            method:param.method,
-            contentType:param.contentType||"application/json",
-            complete: function (xhr) {
-              XHR.complete(xhr, callBack);
-            }
-          })
-        }else{
-          $.ajax({
-            url:regUrl,
-            method:param.method,
-            data:JSON.stringify(param.data),
-            contentType:param.contentType||"application/json",
-            complete: function (xhr) {
-              XHR.complete(xhr, callBack);
-            }
-          })
-        }
+      let url = XHR.decodeURL(param.url),think=param.think;
+      let regUrl = url.replace("{id}",think.id);
+      // console.log('regUrl',regUrl)
+      if(param.method === "GET"||param.method === "DELETE"){
+        $.ajax({
+          url:regUrl,
+          method:param.method,
+          contentType:param.contentType||"application/json",
+          complete: function (xhr) {
+            XHR.complete(xhr, callBack);
+          }
+        })
+      }else{
+        $.ajax({
+          url:regUrl,
+          method:param.method,
+          data:JSON.stringify(param.data),
+          contentType:param.contentType||"application/json",
+          complete: function (xhr) {
+            XHR.complete(xhr, callBack);
+          }
+        })
+      }
 
   }
     static Axios(url,param,callBack){
