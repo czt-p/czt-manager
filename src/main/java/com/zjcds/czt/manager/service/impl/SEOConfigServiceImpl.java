@@ -36,13 +36,14 @@ public class SEOConfigServiceImpl implements SEOConfigService {
         try {
             File file = new File(filePath);
             File dir = new File(file.getParent());
-            if (dir.exists()) {
+            if (!dir.exists()) {
                 dir.mkdirs();
             }
             FileWriter out = new FileWriter(file, false);
             out.write(JsonUtils.toJson(form));
             out.close();
         } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return form;
     }
