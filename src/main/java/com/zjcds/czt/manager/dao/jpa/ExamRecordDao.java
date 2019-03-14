@@ -1,4 +1,4 @@
-package com.zjcds.czt.manager.dao;
+package com.zjcds.czt.manager.dao.jpa;
 
 import com.zjcds.common.jpa.CustomRepostory;
 import com.zjcds.czt.manager.domain.entity.jpa.ExamRecord;

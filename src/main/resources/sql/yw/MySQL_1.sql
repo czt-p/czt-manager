@@ -423,3 +423,17 @@ INSERT INTO `t_register_department` VALUES ('356', '宿迁市宿豫区市场监�
 INSERT INTO `t_register_department` VALUES ('357', '沭阳县市场监督管理局', '321322');
 INSERT INTO `t_register_department` VALUES ('358', '泗阳县市场监督管理局', '321323');
 INSERT INTO `t_register_department` VALUES ('359', '泗洪县市场监督管理局', '321324');
+
+create table t_frontend_page(code varchar(50) not null, name varchar(250), description varchar(250), primary key(code));
+insert into t_frontend_page values ('home','首页','首页');
+insert into t_frontend_page values ('evaluating','高企评测-基础评估','高企评测-基础评估');
+insert into t_frontend_page values ('newRate','高企评测-高新评分','高企评测-高新评分');
+insert into t_frontend_page values ('rateResult','高企评测-评估结果及建议','高企评测-评估结果及建议');
+insert into t_frontend_page values ('subsidize','高企资助查询','高企资助查询');
+insert into t_frontend_page values ('subsidizeDetail','高企资助详情','高企资助详情');
+insert into t_frontend_page values ('costing','高企成本核算','高企成本核算');
+insert into t_frontend_page values ('FAQs','高企问答','高企问答');
+insert into t_frontend_page values ('FAQsDetail','高企问答详情','高企问答详情');
+insert into t_frontend_page values ('about','关于我们','关于我们');
+
+create table t_seo_config(page_code varchar(50) not null, title varchar(250), meta varchar(2048), primary key(page_code));
