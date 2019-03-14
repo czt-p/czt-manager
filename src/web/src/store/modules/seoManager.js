@@ -2,7 +2,7 @@ import * as types from '../mutation-types'
 import Util from 'framework/util/util'
 import XHR from 'framework/xhr/xhr'
 import { MessageBox } from 'element-ui';
-import costingsList from "src/collection/costing"
+import SeoList from "src/collection/SeoList"
 
 const state = {
   name: "seoManager",
@@ -24,15 +24,10 @@ const state = {
       highlight: true,
       caption:"caption",
       th: [
-        {property: "companyName", label: "公司名称"},
-        {property: "consultCost", label: "咨询费用（元）"},
-        {property: "ipCost", label: "知识产权（元）"},
-        {property: "annualAuditCost", label: "年度审计报告（元）"},
-        {property: "specialAuditCost", label: "高薪专项审计（元）"},
-        {property: "otherCost", label: "其他费用（元）"},
-        {property: "totalCost", label: "总费用（元）"},
-        {property: "telephone", label: "联系方式"},
-        {property: "accountTime", label: "时间"},
+        {property: "pageName", label: "页面名称"},
+        {property: "title", label: "Title"},
+        {property: "description", label: "Description"},
+        {property: "keywords", label: "Keywords"},
       ],
       deals: {
         max:2
@@ -45,7 +40,7 @@ const state = {
   tableData: [],
   currentDialog:{},
   url: {
-    seoConfig: "seoConfig", 
+    seoConfigs: "seoConfigs", 
   },
   actions:{
     param: "PARAM_CHANGE",
@@ -58,17 +53,22 @@ const state = {
     id:"ROLE_ID",
     current:"ROLE_CURRENT",
   },
+   _default: {
+     // name: "",
+     // desc: "",
+     // menus: []
+   },
   dialog:{
-    _default:{
-      title:"",
-      visible:false,
-      template:""
+    _default: {
+      title: "",
+      visible: false,
+      template: ""
     },
-    view:{
-      title: "查看核算记录详情",
-      visible:false,
-      width:"80%",
-      template:"viewRole"
+    change: {
+      title: "修改",
+      visible: false,
+      width: "75%",
+      template: "changeRole"
     }
   },
   template:{
@@ -80,18 +80,20 @@ const state = {
   
   },
   result: {},
-  metaInfo: '' //核算详情
+  metaInfo: '', //核算详情
+  form:'',
 }
 
 // getters 对数据进行格式化
 const getters = {
   metaInfo: (state) => state.metaInfo,
   result: state =>state.result,
+  sendInfo: state => state.sendInfo,
 }
 const actions = {
-  getConfigs({commit, state}) {
+  getItems({commit, state}) {
     XHR.get({
-      url: state.url.seoConfig, ///accountRecords批量查询评测记录操作， 支持分页查询
+      url: state.url.seoConfigs, ///accountRecords批量查询评测记录操作， 支持分页查询
     }, function (data) {
       let parse = {
         type: state.url.seoConfig,
@@ -100,15 +102,27 @@ const actions = {
       data.success ? commit(types[state.actions.items], parse) : commit(types.ERROR, parse);
     })
   },
-  saveConfigs({state,commit},data){
-    console.log('saveConfig',data)
-    XHR.form({
-      url: state.url.seoConfig,
-      method: "PUT",
-      data:data,
-    }, function (data) {
-      data.success ? commit(types.SUCCESS, {type:"change",data:data}) : commit(types.ERROR, {type:"change",data:data});
-    })
+  changeItem({state,commit}){
+      state.form['seoForm'].validate((valid) => {
+        if(!valid) return false;
+        let params = {seoConfigs : [
+          {
+            meta:[
+              {name:'keywords',content:state.sendInfo.keywords},
+              {name:'description',content:state.sendInfo.description},
+            ],
+            pageCode: state.sendInfo.pageCode,
+            title: state.sendInfo.title
+          }
+        ]}
+        XHR.form({
+          url: state.url.seoConfigs,
+          method: "PUT",
+          data: params,
+        }, function (data) {
+          data.success ? commit(types.SUCCESS, {type:"change",data:data}) : commit(types.ERROR, {type:"change",data:data});
+        })
+      })
   },
   openDialog({state,commit},type){
     commit(types[state.actions.add]);
@@ -142,14 +156,32 @@ const actions = {
   },
   dialogClose({commit}){
     commit(types[state.actions.close]);
-  }
+  },
+  //获取当前对象的数据
+  getCurrentData({commit, state}, data) {
+    commit(types[state.actions.current], data);
+    commit(types[state.actions.change]);
+  },
 }
 const mutations = {
   //查
   [types[state.actions.items]](state, data) {
-    const result = data;
-    // console.log('metaInfo', data);
-    state.metaInfo = data.data.data;
+    let result = data.data.data;
+    let List = new SeoList(result);
+    // console.log('types', List)
+    state.tableData = List.getModels();
+    if (data.data.data.pageIndex) {
+      state.pageData = {
+        limit: data.data.data.limit,
+        pageIndex: data.data.data.pageIndex,
+        total: data.data.data.total
+      }
+    } else {
+      state.pageData = null;
+    }
+  },
+  [types[state.actions.change]](state) {
+    state.currentDialog= Object.assign({},state.dialog.change,{visible:true});
   },
   //修改参数
   [types[state.actions.param]](state, param) {

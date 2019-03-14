@@ -40,7 +40,7 @@ let final = {
     costDetail: "accountRecords/{id}", //根据id查询单个评测记录
     
     //*******************************************************seo管理***********************************************************//
-    seoConfig: 'seoConfig'
+    seoConfigs: 'seoConfigs'
 
   },
   /*

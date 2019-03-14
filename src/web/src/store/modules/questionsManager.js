@@ -32,9 +32,6 @@ const state = {
       deals: {
         max:4
       },
-      // tops: [
-      //   {text: "新增", id: "btnAdd", name: "add", type: "primary", event: "add"}
-      // ]
     }
   },
   pageData: {

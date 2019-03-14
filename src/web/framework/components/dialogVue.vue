@@ -55,9 +55,9 @@
         });
       },
       open(){
-        
         if(this.currentDialog.title === '查看核算记录详情'){
-          console.log('sss',document.querySelector('.el-dialog__title'))
+          console.log('jjjjjjjjjjj')
+          // console.log('sss',document.querySelector('.el-dialog__title'))
           let spanTitle = document.querySelector('.el-dialog__title');
           spanTitle?spanTitle.className = '.el-dialog__title costingView':'';
         }
@@ -68,7 +68,9 @@
       },
       opened(){
         this.$nextTick(()=>{
-          addQuillTitle();
+          if(this.currentDialog.title === '查看核算记录详情'){
+            addQuillTitle();
+          }
         })
       }
     },
