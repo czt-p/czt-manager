@@ -21,3 +21,4 @@ INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (4, '评测管理', 
 INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (5, '成本核算', null, 'manager/costingManager', '300', 'N')
 INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (6, '政策管理', null, 'manager/subsidizeManager', '400', 'N')
 INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (7, '问答管理', null, 'manager/questionsManager', '500', 'N')
+INSERT INTO t_menu (id, name, icon, url, code, hide) VALUES (8, 'SEO设置', null, 'manager/seoManager', '600', 'N')
