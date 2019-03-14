@@ -13,7 +13,7 @@ import java.util.List;
 public interface FrontendPageDao extends CustomRepostory<FrontendPage,String> {
 
     @EntityGraph(attributePaths = "seoConfig")
-    @Query("select p from FrontendPage p")
+    @Query("select p from FrontendPage p order by code")
     public List<FrontendPage> findAllForFetchSeoConfig();
 
 }
